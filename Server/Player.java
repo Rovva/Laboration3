@@ -7,7 +7,6 @@ public class Player {
 	private int id;
 	private int HP;
 	private int availableAP;
-	private BodyPart BodyPart;
 	private boolean Fighting;
 	
 	public Player(int id){
@@ -25,10 +24,26 @@ public class Player {
 	
 	public void DealDamage(BodyPart part){
 		
-		// nextInt is normally exclusive of the top value,
-		// so add 1 to make it inclusive
-		int dmg = ThreadLocalRandom.current().nextInt(1, 6 + 1);
-		System.out.println();
+		if (part.getHP() <= 0){
+			System.out.println("That body part is demolished");
+		}
+		
+		else{
+			
+			// nextInt is normally exclusive of the top value,
+			// so add 1 to make it inclusive
+			int dmg = ThreadLocalRandom.current().nextInt(1, 6 + 1); // Roll D6
+			dmg = part.damage(dmg);									 // Check armor on body part
+			HP = HP - dmg;
+			System.out.println(id + "took " + dmg + " points of damage!");
+			
+			if (part.getHP() <= 0){
+				System.out.println(id + "'s " + part.getName() + " is destroyed!");
+			}
+			
+		}
+		
+		
 		
 	}
 	

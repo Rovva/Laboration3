@@ -57,5 +57,13 @@ public class Player {
 			System.out.println("You don't have any available Armor Points left!");
 		}
 	}
+	
+	public int getID(){
+		return id;
+	}
+	
+	public boolean fighting(){
+		return Fighting;
+	}
 
 }

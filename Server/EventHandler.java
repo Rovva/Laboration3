@@ -1,20 +1,14 @@
 package Server;
 
-import java.util.LinkedList;
 import java.util.PriorityQueue;
-
-import carFactory.Car;
-import carWashSim.FIFO;
 
 public class EventHandler {
 	
 	public int id = 0;
 	
-	//public static PriorityQueue<Player> queue = new PriorityQueue<Player>();
+	public PriorityQueue<Player> queue = new PriorityQueue<Player>();
 	
-	
-	public static Player[][] battleRoom = new Player[10][2];
-	FIFO<Player> Queue = new FIFO<Player>();
+	public Player[][] battleRoom = new Player[10][2];
 	
 	
 	public EventHandler(){
@@ -25,14 +19,14 @@ public class EventHandler {
 		return p.fighting();
 	}
 	
-	public Player newPlayer(){
+	public void newPlayer(){
 		
-		Player newbie = new Player(id);
+		Player newName = new Player(id);
 		id++;
-		return newbie;
+		queue.add(newName);
 	}
 	
-	public static void startMatch(){
+	public void startMatch(){
 		
 		if (queue.size() >= 2){
 			loop:
@@ -43,8 +37,6 @@ public class EventHandler {
 					battleRoom[i][0] = queue.poll();
 					battleRoom[i][1] = queue.poll();
 					System.out.println("Battle commenced! ==" + battleRoom[i][0].getID() + " VS " + battleRoom[i][1].getID() + "==");
-					battleRoom[i][0].Fighting = true;
-					battleRoom[i][1].Fighting = true;
 					break loop;
 					
 				}
@@ -54,17 +46,8 @@ public class EventHandler {
 		}
 		
 		else{
-			System.out.println("Not enough available players!");
+			System.out.println("Not enough available players.");
 		}
-	}
-
-	public static void main(String[] args) {
-		newPlayer();
-		newPlayer();
-		System.out.println(queue.peek());
-		System.out.println(queue.size());
-		startMatch();
-
 	}
 
 

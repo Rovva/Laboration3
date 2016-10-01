@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.2">
-  <zoom_level>12</zoom_level>
+  <zoom_level>10</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>504</x>
-      <y>60</y>
-      <w>252</w>
-      <h>192</h>
+      <x>440</x>
+      <y>50</y>
+      <w>210</w>
+      <h>160</h>
     </coordinates>
     <panel_attributes>Player
 --
@@ -27,10 +27,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>840</x>
-      <y>60</y>
-      <w>252</w>
-      <h>180</h>
+      <x>720</x>
+      <y>50</y>
+      <w>210</w>
+      <h>150</h>
     </coordinates>
     <panel_attributes>BodyPart
 --
@@ -47,10 +47,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>744</x>
-      <y>144</y>
-      <w>120</w>
-      <h>36</h>
+      <x>640</x>
+      <y>120</y>
+      <w>100</w>
+      <h>30</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>80.0;10.0;10.0;10.0</additional_attributes>
@@ -58,10 +58,10 @@
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>36</x>
+      <x>50</x>
       <y>0</y>
-      <w>1068</w>
-      <h>348</h>
+      <w>890</w>
+      <h>290</h>
     </coordinates>
     <panel_attributes>Server
 --
@@ -71,10 +71,10 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>48</x>
-      <y>60</y>
-      <w>372</w>
-      <h>228</h>
+      <x>60</x>
+      <y>50</y>
+      <w>310</w>
+      <h>190</h>
     </coordinates>
     <panel_attributes>
 EventHandler
@@ -96,10 +96,10 @@ layer=1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>408</x>
-      <y>144</y>
-      <w>120</w>
-      <h>36</h>
+      <x>360</x>
+      <y>120</y>
+      <w>100</w>
+      <h>30</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>80.0;10.0;10.0;10.0</additional_attributes>
@@ -107,10 +107,23 @@ layer=1</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>108</x>
-      <y>396</y>
-      <w>876</w>
-      <h>324</h>
+      <x>1150</x>
+      <y>170</y>
+      <w>140</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>EmptyPackage
+--
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>110</x>
+      <y>330</y>
+      <w>730</w>
+      <h>270</h>
     </coordinates>
     <panel_attributes>Client
 --
@@ -121,10 +134,10 @@ fg=red</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>156</x>
-      <y>456</y>
-      <w>252</w>
-      <h>228</h>
+      <x>150</x>
+      <y>380</y>
+      <w>210</w>
+      <h>190</h>
     </coordinates>
     <panel_attributes>
 Module
@@ -145,10 +158,10 @@ layer=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>528</x>
-      <y>456</y>
-      <w>252</w>
-      <h>228</h>
+      <x>460</x>
+      <y>380</y>
+      <w>210</w>
+      <h>190</h>
     </coordinates>
     <panel_attributes>
 GUI
@@ -169,10 +182,10 @@ layer=1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>216</x>
-      <y>276</y>
-      <w>120</w>
-      <h>204</h>
+      <x>200</x>
+      <y>230</y>
+      <w>100</w>
+      <h>170</h>
     </coordinates>
     <panel_attributes>lt=&lt;.&gt;
 Connection</panel_attributes>

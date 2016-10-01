@@ -7,7 +7,7 @@ public class Player {
 	private int id;
 	private int HP;
 	private int availableAP;
-	protected boolean Fighting;
+	private boolean Fighting;
 	
 	public Player(int id){
 		this.id = id;

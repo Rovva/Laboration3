@@ -4,9 +4,11 @@ import javax.swing.JFrame;
 
 import javax.swing.JLabel;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -28,11 +30,20 @@ import javax.swing.JOptionPane;
 public class GUI implements Observer, ActionListener {
 	
 	JLabel welcomeLabel, connectingLabel, connectedLabel, connectedIPLabel, levelAdventureLabel,
-	placeArmorPointsLabel, armorPointsLabel, fightLabel, attackQuestionLabel, headApLabel, leftArmApLabel,
-	rightArmApLabel, torsoApLabel, leftLegApLabel, rightLegApLabel;
+	placeArmorPointsLabel, armorPointsLabel, fightLabel, attackQuestionLabel;
 	
 	JButton connectButton, disconnectButton, resetBUtton, startFightButton;
 	
+	// Labels and buttons concerning bodyparts
+	JLabel headApLabel, leftArmApLabel,	rightArmApLabel, torsoApLabel, leftLegApLabel, rightLegApLabel;
+	JLabel armorLabel = new JLabel("Click below to upgrade armor:");
+	JButton headButton = new JButton("Head +1");
+	JButton leftArmButton = new JButton("Left Arm +1");
+	JButton rightArmButton = new JButton("Right Arm +1");
+	JButton torsoButton = new JButton("Torso +1"); 
+	JButton leftLegButton = new JButton("Left Leg +1");
+	JButton rightLegButton = new JButton("Right Leg +1");
+
 	int x_size = 500, y_size = 500;
 	
 	JFrame frame;
@@ -50,7 +61,7 @@ public class GUI implements Observer, ActionListener {
 		layout = new SpringLayout();
 		contentPane = frame.getContentPane();
 		contentPane.setLayout(layout);
-
+		contentPane.setBackground(Color.WHITE);
 		armorGUI();
 	}
 	
@@ -121,20 +132,87 @@ public class GUI implements Observer, ActionListener {
 				contentPane.add(rightarm_imgL);
 				contentPane.add(leftleg_imgL);
 				contentPane.add(rightleg_imgL);
-				layout.putConstraint(SpringLayout.NORTH, head_imgL, 20, SpringLayout.NORTH, contentPane);
+				
+				headApLabel = new JLabel("0");
+				leftArmApLabel = new JLabel("0");
+				rightArmApLabel = new JLabel("0");
+				torsoApLabel = new JLabel("0");
+				leftLegApLabel = new JLabel("0");
+				rightLegApLabel = new JLabel("0");
+				
+				contentPane.add(headApLabel, 1, 0);
+				contentPane.add(leftArmApLabel, 1, 0);
+				contentPane.add(rightArmApLabel, 1, 0);
+				contentPane.add(torsoApLabel, 1, 0);
+				contentPane.add(leftLegApLabel, 1, 0);
+				contentPane.add(rightLegApLabel, 1, 0);
+				
+				layout.putConstraint(SpringLayout.NORTH, head_imgL, 75, SpringLayout.NORTH, contentPane);
 				layout.putConstraint(SpringLayout.WEST, head_imgL, -13, SpringLayout.EAST, leftarm_imgL);
+				
+				layout.putConstraint(SpringLayout.SOUTH, headApLabel, -5, SpringLayout.NORTH, head_imgL);
+				layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, headApLabel, 0, SpringLayout.HORIZONTAL_CENTER, head_imgL);
+				
 				layout.putConstraint(SpringLayout.NORTH, leftarm_imgL, 0, SpringLayout.SOUTH, head_imgL);
 				layout.putConstraint(SpringLayout.WEST, leftarm_imgL, 30, SpringLayout.WEST, contentPane);
+				
+				layout.putConstraint(SpringLayout.SOUTH, leftArmApLabel, -5, SpringLayout.NORTH, leftarm_imgL);
+				layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, leftArmApLabel, 0, SpringLayout.HORIZONTAL_CENTER, leftarm_imgL);
+				
 				layout.putConstraint(SpringLayout.NORTH, torso_imgL, 0, SpringLayout.SOUTH, head_imgL);
 				layout.putConstraint(SpringLayout.WEST, torso_imgL, 0, SpringLayout.EAST, leftarm_imgL);
+				
+				layout.putConstraint(SpringLayout.VERTICAL_CENTER, torsoApLabel, -20, SpringLayout.VERTICAL_CENTER, torso_imgL);
+				layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, torsoApLabel, 0, SpringLayout.HORIZONTAL_CENTER, torso_imgL);
+				
 				layout.putConstraint(SpringLayout.NORTH, rightarm_imgL, 0, SpringLayout.SOUTH, head_imgL);
 				layout.putConstraint(SpringLayout.WEST, rightarm_imgL, 0, SpringLayout.EAST, torso_imgL);
 
+				layout.putConstraint(SpringLayout.SOUTH, rightArmApLabel, -5, SpringLayout.NORTH, rightarm_imgL);
+				layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, rightArmApLabel, 0, SpringLayout.HORIZONTAL_CENTER, rightarm_imgL);
+				
 				layout.putConstraint(SpringLayout.NORTH, leftleg_imgL, 0, SpringLayout.SOUTH, torso_imgL);
 				layout.putConstraint(SpringLayout.WEST, leftleg_imgL, 0, SpringLayout.WEST, torso_imgL);
 
+				layout.putConstraint(SpringLayout.EAST, leftLegApLabel, -5, SpringLayout.WEST, leftleg_imgL);
+				layout.putConstraint(SpringLayout.VERTICAL_CENTER, leftLegApLabel, 0, SpringLayout.VERTICAL_CENTER, leftleg_imgL);
+				
 				layout.putConstraint(SpringLayout.NORTH, rightleg_imgL, 0, SpringLayout.SOUTH, torso_imgL);
 				layout.putConstraint(SpringLayout.EAST, rightleg_imgL, 0, SpringLayout.EAST, torso_imgL);
+
+				layout.putConstraint(SpringLayout.WEST, rightLegApLabel, 5, SpringLayout.EAST, rightleg_imgL);
+				layout.putConstraint(SpringLayout.VERTICAL_CENTER, rightLegApLabel, 0, SpringLayout.VERTICAL_CENTER, rightleg_imgL);
+				
+				contentPane.add(armorLabel);
+				// Place all the buttons to upgrade armor
+				contentPane.add(headButton);
+				contentPane.add(leftArmButton);
+				contentPane.add(rightArmButton);
+				contentPane.add(torsoButton);
+				contentPane.add(leftLegButton);
+				contentPane.add(rightLegButton);
+
+				layout.putConstraint(SpringLayout.NORTH, armorLabel, 20, SpringLayout.NORTH, contentPane);
+				layout.putConstraint(SpringLayout.EAST, armorLabel, -5, SpringLayout.EAST, contentPane);
+				
+				layout.putConstraint(SpringLayout.EAST, headButton, -5, SpringLayout.EAST, armorLabel);
+				layout.putConstraint(SpringLayout.NORTH, headButton, 5, SpringLayout.SOUTH, armorLabel);
+
+				layout.putConstraint(SpringLayout.EAST, leftArmButton, 0, SpringLayout.EAST, headButton);
+				layout.putConstraint(SpringLayout.NORTH, leftArmButton, 5, SpringLayout.SOUTH, headButton);
+				
+				layout.putConstraint(SpringLayout.EAST, rightArmButton, 0, SpringLayout.EAST, leftArmButton);
+				layout.putConstraint(SpringLayout.NORTH, rightArmButton, 5, SpringLayout.SOUTH, leftArmButton);
+
+				layout.putConstraint(SpringLayout.EAST, torsoButton, 0, SpringLayout.EAST, rightArmButton);
+				layout.putConstraint(SpringLayout.NORTH, torsoButton, 5, SpringLayout.SOUTH, rightArmButton);
+
+				layout.putConstraint(SpringLayout.EAST, leftLegButton, 0, SpringLayout.EAST, torsoButton);
+				layout.putConstraint(SpringLayout.NORTH, leftLegButton, 5, SpringLayout.SOUTH, torsoButton);
+
+				layout.putConstraint(SpringLayout.EAST, rightLegButton, 0, SpringLayout.EAST, leftLegButton);
+				layout.putConstraint(SpringLayout.NORTH, rightLegButton, 5, SpringLayout.SOUTH, leftLegButton);
+				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

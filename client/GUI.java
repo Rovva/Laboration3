@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -30,20 +31,25 @@ import javax.swing.JOptionPane;
 public class GUI implements Observer, ActionListener {
 	
 	JLabel welcomeLabel, connectingLabel, connectedLabel, connectedIPLabel, levelAdventureLabel,
-	placeArmorPointsLabel, armorPointsLabel, fightLabel, attackQuestionLabel;
+		   fightLabel, attackQuestionLabel;
 	
-	JButton connectButton, disconnectButton, resetBUtton, startFightButton;
+	JButton connectButton, disconnectButton, startFightButton;
 	
 	// Labels and buttons concerning bodyparts
 	JLabel headApLabel, leftArmApLabel,	rightArmApLabel, torsoApLabel, leftLegApLabel, rightLegApLabel;
+	JLabel placeArmorPointsLabel = new JLabel("Place out armorpoints!");
+	JLabel armorPoints = new JLabel("0/0 points");
 	JLabel armorLabel = new JLabel("Click below to upgrade armor:");
+	JLabel resetArmorLabel = new JLabel("Click the button below to reset armor");
 	JButton headButton = new JButton("Head +1");
 	JButton leftArmButton = new JButton("Left Arm +1");
 	JButton rightArmButton = new JButton("Right Arm +1");
 	JButton torsoButton = new JButton("Torso +1"); 
 	JButton leftLegButton = new JButton("Left Leg +1");
 	JButton rightLegButton = new JButton("Right Leg +1");
-
+	JButton armorResetButton = new JButton("Reset");
+	JButton readyButton = new JButton("Ready!");
+	
 	int x_size = 500, y_size = 500;
 	
 	JFrame frame;
@@ -133,6 +139,7 @@ public class GUI implements Observer, ActionListener {
 				contentPane.add(leftleg_imgL);
 				contentPane.add(rightleg_imgL);
 				
+				
 				headApLabel = new JLabel("0");
 				leftArmApLabel = new JLabel("0");
 				rightArmApLabel = new JLabel("0");
@@ -146,6 +153,15 @@ public class GUI implements Observer, ActionListener {
 				contentPane.add(torsoApLabel, 1, 0);
 				contentPane.add(leftLegApLabel, 1, 0);
 				contentPane.add(rightLegApLabel, 1, 0);
+				
+				contentPane.add(placeArmorPointsLabel);
+				contentPane.add(armorPoints);
+				
+				layout.putConstraint(SpringLayout.NORTH, placeArmorPointsLabel, 5, SpringLayout.NORTH, contentPane);
+				layout.putConstraint(SpringLayout.WEST, placeArmorPointsLabel, 5, SpringLayout.WEST, contentPane);
+				
+				layout.putConstraint(SpringLayout.NORTH, armorPoints, 5, SpringLayout.SOUTH, placeArmorPointsLabel);
+				layout.putConstraint(SpringLayout.WEST, armorPoints, 5, SpringLayout.WEST, contentPane);
 				
 				layout.putConstraint(SpringLayout.NORTH, head_imgL, 75, SpringLayout.NORTH, contentPane);
 				layout.putConstraint(SpringLayout.WEST, head_imgL, -13, SpringLayout.EAST, leftarm_imgL);
@@ -184,6 +200,15 @@ public class GUI implements Observer, ActionListener {
 				layout.putConstraint(SpringLayout.VERTICAL_CENTER, rightLegApLabel, 0, SpringLayout.VERTICAL_CENTER, rightleg_imgL);
 				
 				contentPane.add(armorLabel);
+				
+				headButton.setPreferredSize(new Dimension(120, 30));
+				leftArmButton.setPreferredSize(new Dimension(120, 30));
+				rightArmButton.setPreferredSize(new Dimension(120, 30));
+				torsoButton.setPreferredSize(new Dimension(120, 30));
+				leftLegButton.setPreferredSize(new Dimension(120, 30));
+				rightLegButton.setPreferredSize(new Dimension(120, 30));
+				armorResetButton.setPreferredSize(new Dimension(120, 30));
+				readyButton.setPreferredSize(new Dimension(120, 30));
 				// Place all the buttons to upgrade armor
 				contentPane.add(headButton);
 				contentPane.add(leftArmButton);
@@ -191,6 +216,8 @@ public class GUI implements Observer, ActionListener {
 				contentPane.add(torsoButton);
 				contentPane.add(leftLegButton);
 				contentPane.add(rightLegButton);
+				contentPane.add(armorResetButton);
+				contentPane.add(readyButton);
 
 				layout.putConstraint(SpringLayout.NORTH, armorLabel, 20, SpringLayout.NORTH, contentPane);
 				layout.putConstraint(SpringLayout.EAST, armorLabel, -5, SpringLayout.EAST, contentPane);
@@ -212,6 +239,12 @@ public class GUI implements Observer, ActionListener {
 
 				layout.putConstraint(SpringLayout.EAST, rightLegButton, 0, SpringLayout.EAST, leftLegButton);
 				layout.putConstraint(SpringLayout.NORTH, rightLegButton, 5, SpringLayout.SOUTH, leftLegButton);
+				
+				layout.putConstraint(SpringLayout.EAST, armorResetButton, 0, SpringLayout.EAST, rightLegButton);
+				layout.putConstraint(SpringLayout.NORTH, armorResetButton, 5, SpringLayout.SOUTH, rightLegButton);
+				
+				layout.putConstraint(SpringLayout.EAST, readyButton, 0, SpringLayout.EAST, armorResetButton);
+				layout.putConstraint(SpringLayout.NORTH, readyButton, 30, SpringLayout.SOUTH, armorResetButton);
 				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

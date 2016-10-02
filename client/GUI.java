@@ -35,20 +35,22 @@ public class GUI implements Observer, ActionListener {
 	
 	JButton connectButton, disconnectButton, startFightButton;
 	
-	// Labels and buttons concerning bodyparts
+	// Labels and buttons concerning armoring part of the game
 	JLabel headApLabel, leftArmApLabel,	rightArmApLabel, torsoApLabel, leftLegApLabel, rightLegApLabel;
 	JLabel placeArmorPointsLabel = new JLabel("Place out armorpoints!");
 	JLabel armorPoints = new JLabel("0/0 points");
 	JLabel armorLabel = new JLabel("Click below to upgrade armor:");
 	JLabel resetArmorLabel = new JLabel("Click the button below to reset armor");
-	JButton headButton = new JButton("Head +1");
-	JButton leftArmButton = new JButton("Left Arm +1");
-	JButton rightArmButton = new JButton("Right Arm +1");
-	JButton torsoButton = new JButton("Torso +1"); 
-	JButton leftLegButton = new JButton("Left Leg +1");
-	JButton rightLegButton = new JButton("Right Leg +1");
-	JButton armorResetButton = new JButton("Reset");
-	JButton readyButton = new JButton("Ready!");
+	JButton headButton = new JButton("Head +1"), leftArmButton = new JButton("Left Arm +1"),
+			rightArmButton = new JButton("Right Arm +1"), torsoButton = new JButton("Torso +1"),
+			leftLegButton = new JButton("Left Leg +1"), rightLegButton = new JButton("Right Leg +1"),
+			armorResetButton = new JButton("Reset"), readyButton = new JButton("Ready!");
+	
+	// Fighting buttons and labels
+	JLabel attackLabel = new JLabel("Attack:");
+	JButton attackHead = new JButton("Head"), attackLeftArm = new JButton("Left Arm"), 
+			attackRightArm = new JButton("Right Arm"), attackTorso = new JButton("Torso"), 
+			attackLeftLeg = new JButton("Left Leg"), attackRightLeg = new JButton("Right Leg");
 	
 	int x_size = 500, y_size = 500;
 	
@@ -68,7 +70,7 @@ public class GUI implements Observer, ActionListener {
 		contentPane = frame.getContentPane();
 		contentPane.setLayout(layout);
 		contentPane.setBackground(Color.WHITE);
-		armorGUI();
+		fightingGUI();
 	}
 	
 	private void resetGUI() {	
@@ -245,12 +247,162 @@ public class GUI implements Observer, ActionListener {
 				
 				layout.putConstraint(SpringLayout.EAST, readyButton, 0, SpringLayout.EAST, armorResetButton);
 				layout.putConstraint(SpringLayout.NORTH, readyButton, 30, SpringLayout.SOUTH, armorResetButton);
-				
+							
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
+	}
+	
+	public void fightingGUI() {
+		resetGUI();
+		BufferedImage img;
+		try {
+			// Get images for the player
+			img = ImageIO.read(new File("Graphics/Player/P_Head1.png"));
+			ImageIcon icon = new ImageIcon(img);
+			JLabel playerHead_imgL = new JLabel(icon);
+			
+			img = ImageIO.read(new File("Graphics/Player/P_LeftArm1.png"));
+			icon = new ImageIcon(img);
+			JLabel playerLeftarm_imgL = new JLabel(icon);
+
+			img = ImageIO.read(new File("Graphics/Player/P_torso1.png"));
+			icon = new ImageIcon(img);
+			JLabel playerTorso_imgL = new JLabel(icon);
+
+			img = ImageIO.read(new File("Graphics/Player/P_RightArm1.png"));
+			icon = new ImageIcon(img);
+			JLabel playerRightarm_imgL = new JLabel(icon);
+
+			img = ImageIO.read(new File("Graphics/Player/P_leg1.png"));
+			icon = new ImageIcon(img);
+			JLabel playerLeftleg_imgL = new JLabel(icon);
+
+			img = ImageIO.read(new File("Graphics/Player/P_leg1.png"));
+			icon = new ImageIcon(img);
+			JLabel playerRightleg_imgL = new JLabel(icon);
+			
+			// Add images to GUI
+			contentPane.add(playerHead_imgL);
+			contentPane.add(playerLeftarm_imgL);
+			contentPane.add(playerTorso_imgL);
+			contentPane.add(playerRightarm_imgL);
+			contentPane.add(playerLeftleg_imgL);
+			contentPane.add(playerRightleg_imgL);
+			
+			// Place player-images in layout
+
+			layout.putConstraint(SpringLayout.NORTH, playerHead_imgL, 75, SpringLayout.NORTH, contentPane);
+			layout.putConstraint(SpringLayout.WEST, playerHead_imgL, -13, SpringLayout.EAST, playerLeftarm_imgL);
+			
+			layout.putConstraint(SpringLayout.NORTH, playerLeftarm_imgL, 0, SpringLayout.SOUTH, playerHead_imgL);
+			layout.putConstraint(SpringLayout.WEST, playerLeftarm_imgL, 30, SpringLayout.WEST, contentPane);
+			
+			layout.putConstraint(SpringLayout.NORTH, playerTorso_imgL, 0, SpringLayout.SOUTH, playerHead_imgL);
+			layout.putConstraint(SpringLayout.WEST, playerTorso_imgL, 0, SpringLayout.EAST, playerLeftarm_imgL);
+
+			layout.putConstraint(SpringLayout.NORTH, playerRightarm_imgL, 0, SpringLayout.SOUTH, playerHead_imgL);
+			layout.putConstraint(SpringLayout.WEST, playerRightarm_imgL, 0, SpringLayout.EAST, playerTorso_imgL);
+			
+			layout.putConstraint(SpringLayout.NORTH, playerLeftleg_imgL, 0, SpringLayout.SOUTH, playerTorso_imgL);
+			layout.putConstraint(SpringLayout.WEST, playerLeftleg_imgL, 0, SpringLayout.WEST, playerTorso_imgL);
+			
+			layout.putConstraint(SpringLayout.NORTH, playerRightleg_imgL, 0, SpringLayout.SOUTH, playerTorso_imgL);
+			layout.putConstraint(SpringLayout.EAST, playerRightleg_imgL, 0, SpringLayout.EAST, playerTorso_imgL);
+
+			// Get images for enemy
+			img = ImageIO.read(new File("Graphics/Enemy/E_Head1.png"));
+			icon = new ImageIcon(img);
+			JLabel enemyHead_imgL = new JLabel(icon);
+			
+			img = ImageIO.read(new File("Graphics/Enemy/E_RightArm1.png"));
+			icon = new ImageIcon(img);
+			JLabel enemyLeftarm_imgL = new JLabel(icon);
+
+			img = ImageIO.read(new File("Graphics/Enemy/E_torso1.png"));
+			icon = new ImageIcon(img);
+			JLabel enemyTorso_imgL = new JLabel(icon);
+
+			img = ImageIO.read(new File("Graphics/Enemy/E_LeftArm1.png"));
+			icon = new ImageIcon(img);
+			JLabel enemyRightarm_imgL = new JLabel(icon);
+
+			img = ImageIO.read(new File("Graphics/Enemy/E_leg1.png"));
+			icon = new ImageIcon(img);
+			JLabel enemyLeftleg_imgL = new JLabel(icon);
+
+			img = ImageIO.read(new File("Graphics/Enemy/E_leg1.png"));
+			icon = new ImageIcon(img);
+			JLabel enemyRightleg_imgL = new JLabel(icon);
+
+			// Add images to GUI
+			contentPane.add(enemyHead_imgL);
+			contentPane.add(enemyLeftarm_imgL);
+			contentPane.add(enemyTorso_imgL);
+			contentPane.add(enemyRightarm_imgL);
+			contentPane.add(enemyLeftleg_imgL);
+			contentPane.add(enemyRightleg_imgL);
+						
+			
+			// Place enemy images in layout
+			layout.putConstraint(SpringLayout.NORTH, enemyHead_imgL, 75, SpringLayout.NORTH, contentPane);
+			layout.putConstraint(SpringLayout.EAST, enemyHead_imgL, 13, SpringLayout.WEST, enemyRightarm_imgL);
+			
+			layout.putConstraint(SpringLayout.NORTH, enemyRightarm_imgL, 0, SpringLayout.SOUTH, enemyHead_imgL);
+			layout.putConstraint(SpringLayout.EAST, enemyRightarm_imgL, -30, SpringLayout.EAST, contentPane);
+			
+			layout.putConstraint(SpringLayout.NORTH, enemyTorso_imgL, 0, SpringLayout.SOUTH, enemyHead_imgL);
+			layout.putConstraint(SpringLayout.EAST, enemyTorso_imgL, 0, SpringLayout.WEST, enemyRightarm_imgL);
+
+			layout.putConstraint(SpringLayout.NORTH, enemyLeftarm_imgL, 0, SpringLayout.SOUTH, enemyHead_imgL);
+			layout.putConstraint(SpringLayout.EAST, enemyLeftarm_imgL, 0, SpringLayout.WEST, enemyTorso_imgL);
+			
+			layout.putConstraint(SpringLayout.NORTH, enemyLeftleg_imgL, 0, SpringLayout.SOUTH, enemyTorso_imgL);
+			layout.putConstraint(SpringLayout.WEST, enemyLeftleg_imgL, 0, SpringLayout.WEST, enemyTorso_imgL);
+			
+			layout.putConstraint(SpringLayout.NORTH, enemyRightleg_imgL, 0, SpringLayout.SOUTH, enemyTorso_imgL);
+			layout.putConstraint(SpringLayout.EAST, enemyRightleg_imgL, 0, SpringLayout.EAST, enemyTorso_imgL);
+			
+			
+			// Add label and buttons
+			contentPane.add(attackLabel);
+			
+			contentPane.add(attackHead);
+			contentPane.add(attackLeftArm);
+			contentPane.add(attackTorso);
+			contentPane.add(attackRightArm);
+			contentPane.add(attackLeftLeg);
+			contentPane.add(attackRightLeg);
+			
+			// Place label and buttons in gui
+			layout.putConstraint(SpringLayout.NORTH, attackLabel, 5, SpringLayout.NORTH, contentPane);
+			layout.putConstraint(SpringLayout.WEST, attackLabel, 0, SpringLayout.WEST, contentPane);
+			
+			layout.putConstraint(SpringLayout.NORTH, attackHead, 5, SpringLayout.NORTH, contentPane);
+			layout.putConstraint(SpringLayout.WEST, attackHead, 5, SpringLayout.EAST, attackLabel);
+			
+			layout.putConstraint(SpringLayout.NORTH, attackLeftArm, 5, SpringLayout.NORTH, contentPane);
+			layout.putConstraint(SpringLayout.WEST, attackLeftArm, 5, SpringLayout.EAST, attackHead);
+			
+			layout.putConstraint(SpringLayout.NORTH, attackTorso, 5, SpringLayout.NORTH, contentPane);
+			layout.putConstraint(SpringLayout.WEST, attackTorso, 5, SpringLayout.EAST, attackLeftArm);
+			
+			layout.putConstraint(SpringLayout.NORTH, attackRightArm, 5, SpringLayout.NORTH, contentPane);
+			layout.putConstraint(SpringLayout.WEST, attackRightArm, 5, SpringLayout.EAST, attackTorso);
+			
+			layout.putConstraint(SpringLayout.NORTH, attackLeftLeg, 5, SpringLayout.NORTH, contentPane);
+			layout.putConstraint(SpringLayout.WEST, attackLeftLeg, 5, SpringLayout.EAST, attackRightArm);
+			
+			layout.putConstraint(SpringLayout.NORTH, attackRightLeg, 5, SpringLayout.NORTH, contentPane);
+			layout.putConstraint(SpringLayout.WEST, attackRightLeg, 5, SpringLayout.EAST, attackLeftLeg);
+
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	@Override

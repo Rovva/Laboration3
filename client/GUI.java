@@ -28,6 +28,8 @@ import javax.swing.JLabel;
 import javax.swing.SpringLayout;
 import javax.swing.JOptionPane;
 
+import client.Module;
+
 public class GUI implements Observer, ActionListener {
 	
 	JLabel welcomeLabel, connectingLabel, connectedLabel, connectedIPLabel, levelAdventureLabel,
@@ -52,7 +54,7 @@ public class GUI implements Observer, ActionListener {
 			attackRightArm = new JButton("Right Arm"), attackTorso = new JButton("Torso"), 
 			attackLeftLeg = new JButton("Left Leg"), attackRightLeg = new JButton("Right Leg");
 	
-	int x_size = 500, y_size = 500;
+	int x_size = 700, y_size = 500;
 	
 	JFrame frame;
 	SpringLayout layout;
@@ -60,8 +62,12 @@ public class GUI implements Observer, ActionListener {
 	Container contentPane;
 	
 	String ipAdress;
+	String guiState;
+	Module mod;
 	
-	public GUI() {
+	public GUI(Module mod) {
+		this.mod = mod;
+		mod.addObserver(this);
 		frame = new JFrame("Stickman Tournament");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(x_size, y_size);
@@ -70,7 +76,6 @@ public class GUI implements Observer, ActionListener {
 		contentPane = frame.getContentPane();
 		contentPane.setLayout(layout);
 		contentPane.setBackground(Color.WHITE);
-		fightingGUI();
 	}
 	
 	private void resetGUI() {	
@@ -79,6 +84,7 @@ public class GUI implements Observer, ActionListener {
 	
 	private void connectGUI() {
 		resetGUI();
+		this.guiState = "Unconnected";
 		welcomeLabel = new JLabel("Welcome to Stickman Tournament!");
 		connectingLabel = new JLabel("Click the Connect button to connect to a server!");
 		connectButton = new JButton("Connect");
@@ -99,6 +105,7 @@ public class GUI implements Observer, ActionListener {
 	
 	private void connectingGUI() {
 		resetGUI();
+		this.guiState = "Connecting";
 		connectingLabel = new JLabel("Connecting to: " + ipAdress);
 		contentPane.add(connectingLabel);
 
@@ -109,6 +116,7 @@ public class GUI implements Observer, ActionListener {
 	private void armorGUI() {
 		resetGUI();
 	    BufferedImage img;
+	    this.guiState = "Connected/Armor";
 			try {
 				img = ImageIO.read(new File("Graphics/Player/P_Head1.png"));
 				ImageIcon icon = new ImageIcon(img);
@@ -258,6 +266,7 @@ public class GUI implements Observer, ActionListener {
 	public void fightingGUI() {
 		resetGUI();
 		BufferedImage img;
+		this.guiState = "Connected/Fighting";
 		try {
 			// Get images for the player
 			img = ImageIO.read(new File("Graphics/Player/P_Head1.png"));
@@ -410,7 +419,7 @@ public class GUI implements Observer, ActionListener {
 		String op = arg0.getActionCommand();
 		if(op == "Connect") {
 			ipAdress = JOptionPane.showInputDialog("Adress:port");
-			armorGUI();
+			
 		}
 		
 	}
@@ -418,6 +427,18 @@ public class GUI implements Observer, ActionListener {
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		// TODO Auto-generated method stub
-		
+		String moduleGameState = mod.getState();
+		if(moduleGameState == "Unconnected" && this.guiState != moduleGameState) {
+			connectGUI();
+		} else if(moduleGameState == "Connecting" && this.guiState != moduleGameState) {
+			connectingGUI();
+		} else if(moduleGameState == "Connected/Armoring" && this.guiState != moduleGameState) {
+			armorGUI();
+		} else if(moduleGameState == "Connected/Fight" && this.guiState != moduleGameState) {
+			fightingGUI();
+		}
+		//else if(moduleGameState == "Disconnect" && this.guiState != moduleGameState) {
+		//	disconnectGUI();
+		//}
 	}
 }

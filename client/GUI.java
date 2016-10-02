@@ -30,7 +30,7 @@ import javax.swing.JOptionPane;
 
 import client.Module;
 
-public class GUI implements Observer, ActionListener {
+public class GUI extends JFrame implements Observer, ActionListener {
 	
 	JLabel welcomeLabel, connectingLabel, connectedLabel, connectedIPLabel, levelAdventureLabel,
 		   fightLabel, attackQuestionLabel;
@@ -58,7 +58,6 @@ public class GUI implements Observer, ActionListener {
 	
 	JFrame frame;
 	SpringLayout layout;
-	
 	Container contentPane;
 	
 	String ipAdress;
@@ -76,6 +75,8 @@ public class GUI implements Observer, ActionListener {
 		contentPane = frame.getContentPane();
 		contentPane.setLayout(layout);
 		contentPane.setBackground(Color.WHITE);
+		this.guiState = "Unconnected";
+		connectGUI();
 	}
 	
 	private void resetGUI() {	
@@ -84,6 +85,7 @@ public class GUI implements Observer, ActionListener {
 	
 	private void connectGUI() {
 		resetGUI();
+		frame.repaint();
 		this.guiState = "Unconnected";
 		welcomeLabel = new JLabel("Welcome to Stickman Tournament!");
 		connectingLabel = new JLabel("Click the Connect button to connect to a server!");
@@ -105,6 +107,7 @@ public class GUI implements Observer, ActionListener {
 	
 	private void connectingGUI() {
 		resetGUI();
+		frame.repaint();
 		this.guiState = "Connecting";
 		connectingLabel = new JLabel("Connecting to: " + ipAdress);
 		contentPane.add(connectingLabel);
@@ -116,7 +119,7 @@ public class GUI implements Observer, ActionListener {
 	private void armorGUI() {
 		resetGUI();
 	    BufferedImage img;
-	    this.guiState = "Connected/Armor";
+	    this.guiState = "Connected/Armoring";
 			try {
 				img = ImageIO.read(new File("Graphics/Player/P_Head1.png"));
 				ImageIcon icon = new ImageIcon(img);
@@ -221,13 +224,21 @@ public class GUI implements Observer, ActionListener {
 				readyButton.setPreferredSize(new Dimension(120, 30));
 				// Place all the buttons to upgrade armor
 				contentPane.add(headButton);
+				headButton.addActionListener(this);
 				contentPane.add(leftArmButton);
+				leftArmButton.addActionListener(this);
 				contentPane.add(rightArmButton);
+				rightArmButton.addActionListener(this);
 				contentPane.add(torsoButton);
+				torsoButton.addActionListener(this);
 				contentPane.add(leftLegButton);
+				leftLegButton.addActionListener(this);
 				contentPane.add(rightLegButton);
+				rightLegButton.addActionListener(this);
 				contentPane.add(armorResetButton);
+				armorResetButton.addActionListener(this);
 				contentPane.add(readyButton);
+				readyButton.addActionListener(this);
 
 				layout.putConstraint(SpringLayout.NORTH, armorLabel, 20, SpringLayout.NORTH, contentPane);
 				layout.putConstraint(SpringLayout.EAST, armorLabel, -5, SpringLayout.EAST, contentPane);
@@ -260,7 +271,7 @@ public class GUI implements Observer, ActionListener {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 	}
 	
 	public void fightingGUI() {
@@ -419,26 +430,50 @@ public class GUI implements Observer, ActionListener {
 		String op = arg0.getActionCommand();
 		if(op == "Connect") {
 			ipAdress = JOptionPane.showInputDialog("Adress:port");
-			
+			mod.connectToServer(ipAdress);
 		}
-		
+		checkBodyParts(op);
+		this.armorPoints.setText(mod.getArmorPoints() + " / " + mod.getMaxArmorPoints() + " points.");
+		arg0 = null;
 	}
-
+	
+	void checkBodyParts(String op) {
+		if(mod.getArmorPoints() > 0) {
+			if(op == "Head +1") {
+				mod.setArmorPoint("Head");
+			} else if(op == "Left Arm +1") {
+				mod.setArmorPoint("Left Arm");
+			} else if(op == "Torso +1") {
+				mod.setArmorPoint("Torso");
+			} else if(op == "Right Arm +1") {
+				mod.setArmorPoint("Right Arm");
+			} else if(op == "Left Leg +1") {
+				mod.setArmorPoint("Left Leg");
+			} else if(op == "Right Leg +1") {
+				mod.setArmorPoint("Right Leg");
+			}
+		}
+	}
+	
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
 		String moduleGameState = mod.getState();
-		if(moduleGameState == "Unconnected" && this.guiState != moduleGameState) {
+		System.out.println(moduleGameState);
+		if(moduleGameState.equals("Unconnected")) {
 			connectGUI();
-		} else if(moduleGameState == "Connecting" && this.guiState != moduleGameState) {
+		} else if(moduleGameState.equals("Connecting")) {
 			connectingGUI();
-		} else if(moduleGameState == "Connected/Armoring" && this.guiState != moduleGameState) {
+			if(mod.checkConnection()) {
+				mod.setState("Connected/Armoring");
+			}
+		} else if(moduleGameState.equals("Connected/Armoring") && this.guiState != "Connected/Armoring") {
 			armorGUI();
-		} else if(moduleGameState == "Connected/Fight" && this.guiState != moduleGameState) {
+		} else if(moduleGameState.equals("Connected/Fighting") && this.guiState != "Connected/Fighting") {
 			fightingGUI();
 		}
 		//else if(moduleGameState == "Disconnect" && this.guiState != moduleGameState) {
 		//	disconnectGUI();
 		//}
+		this.frame.validate();
 	}
 }

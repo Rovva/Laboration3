@@ -85,7 +85,6 @@ public class GUI extends JFrame implements Observer, ActionListener {
 	
 	private void connectGUI() {
 		resetGUI();
-		frame.repaint();
 		this.guiState = "Unconnected";
 		welcomeLabel = new JLabel("Welcome to Stickman Tournament!");
 		connectingLabel = new JLabel("Click the Connect button to connect to a server!");
@@ -274,7 +273,7 @@ public class GUI extends JFrame implements Observer, ActionListener {
 
 	}
 	
-	public void fightingGUI() {
+	private void fightingGUI() {
 		resetGUI();
 		BufferedImage img;
 		this.guiState = "Connected/Fighting";
@@ -425,19 +424,33 @@ public class GUI extends JFrame implements Observer, ActionListener {
 		
 	}
 	
+	private void waitGUI() {
+		resetGUI();
+		this.guiState = "Connected/FightWait";
+		JLabel waiting = new JLabel("Waiting for another player...");
+		contentPane.add(waiting);
+		layout.putConstraint(SpringLayout.VERTICAL_CENTER, waiting, 0, SpringLayout.VERTICAL_CENTER, contentPane);
+		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, waiting, 0, SpringLayout.HORIZONTAL_CENTER, contentPane);
+		mod.checkConnection();
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		String op = arg0.getActionCommand();
 		if(op == "Connect") {
 			ipAdress = JOptionPane.showInputDialog("Adress:port");
 			mod.connectToServer(ipAdress);
+		} else if(op == "Reset") {
+			mod.resetArmorPoints();
+		} else if(op == "Ready!") {
+			mod.setState("Connected/FightWait");
 		}
 		checkBodyParts(op);
 		this.armorPoints.setText(mod.getArmorPoints() + " / " + mod.getMaxArmorPoints() + " points.");
 		arg0 = null;
 	}
 	
-	void checkBodyParts(String op) {
+	private void checkBodyParts(String op) {
 		if(mod.getArmorPoints() > 0) {
 			if(op == "Head +1") {
 				mod.setArmorPoint("Head");
@@ -455,6 +468,10 @@ public class GUI extends JFrame implements Observer, ActionListener {
 		}
 	}
 	
+	void attackBodyParts(String op) {
+		
+	}
+	
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		String moduleGameState = mod.getState();
@@ -468,12 +485,29 @@ public class GUI extends JFrame implements Observer, ActionListener {
 			}
 		} else if(moduleGameState.equals("Connected/Armoring") && this.guiState != "Connected/Armoring") {
 			armorGUI();
+		} else if(moduleGameState.equals("Connected/Armoring") && this.guiState == "Connected/Armoring") {
+			getArmorLabels();
+		} else if(moduleGameState.equals("Connected/FightWait") && this.guiState != "Connected/Fightwait") {
+			waitGUI();
+			System.out.println("wait");
+		} else if(moduleGameState.equals("Connected/FightWait") && this.guiState == "Connected/Fightwait") {
+			
 		} else if(moduleGameState.equals("Connected/Fighting") && this.guiState != "Connected/Fighting") {
 			fightingGUI();
-		}
-		//else if(moduleGameState == "Disconnect" && this.guiState != moduleGameState) {
+		} else if(moduleGameState.equals("Connected/Fighting") && this.guiState == "Connected/Fighting") {
+			
+		} else if(moduleGameState == "Disconnect" && this.guiState != "Disconnect") {
 		//	disconnectGUI();
-		//}
+		}
 		this.frame.validate();
+	}
+	
+	private void getArmorLabels() {
+		headApLabel.setText((String.valueOf(mod.getBodyPartArmor("Head"))));
+		leftArmApLabel.setText((String.valueOf(mod.getBodyPartArmor("Left Arm"))));
+		torsoApLabel.setText((String.valueOf(mod.getBodyPartArmor("Torso"))));
+		rightArmApLabel.setText((String.valueOf(mod.getBodyPartArmor("Right Arm"))));
+		leftLegApLabel.setText((String.valueOf(mod.getBodyPartArmor("Left Leg"))));
+		rightLegApLabel.setText((String.valueOf(mod.getBodyPartArmor("Right Leg"))));
 	}
 }

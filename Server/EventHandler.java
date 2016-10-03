@@ -3,10 +3,11 @@ package Server;
 import java.util.PriorityQueue;
 
 public class EventHandler {
+
+	public static int id = 0;
 	
-	public int id = 0;
-	
-	public PriorityQueue<Player> queue = new PriorityQueue<Player>();
+	public static PriorityQueue<Player> queue = new PriorityQueue<Player>();
+
 	
 	public Player[][] battleRoom = new Player[10][2];
 	
@@ -16,14 +17,15 @@ public class EventHandler {
 	}
 	
 	public boolean checkPlayerStatus(Player p){
-		return p.fighting();
+		return p.getFighting();
 	}
 	
-	public void newPlayer(){
+	public static void newPlayer(){
 		
 		Player newName = new Player(id);
-		id++;
 		queue.add(newName);
+		System.out.println("Player "+id+" created! ^^");
+		id++;
 	}
 	
 	public void startMatch(){
@@ -36,6 +38,8 @@ public class EventHandler {
 					
 					battleRoom[i][0] = queue.poll();
 					battleRoom[i][1] = queue.poll();
+					battleRoom[i][0].setFighting();
+					battleRoom[i][1].setFighting();
 					System.out.println("Battle commenced! ==" + battleRoom[i][0].getID() + " VS " + battleRoom[i][1].getID() + "==");
 					break loop;
 					
@@ -48,6 +52,32 @@ public class EventHandler {
 		else{
 			System.out.println("Not enough available players.");
 		}
+	}
+	
+	public static void main(String[] args) {
+		newPlayer();
+		queue.peek().DealDamage_Head();
+		queue.peek().getHP();
+		queue.peek().ApplyArmor_Head();
+		queue.peek().ApplyArmor_Head();
+		queue.peek().ApplyArmor_Head();
+		queue.peek().DealDamage_Head();
+		queue.peek().DealDamage_Head();
+		queue.peek().DealDamage_Head();
+		queue.peek().DealDamage_Head();
+		queue.peek().getHP();
+		queue.peek().ApplyArmor_Head();
+		queue.peek().ApplyArmor_Head();
+		queue.peek().ApplyArmor_Head();
+		queue.peek().ApplyArmor_Head();
+		queue.peek().ApplyArmor_Head();
+		queue.peek().ApplyArmor_Head();
+		queue.peek().ApplyArmor_Head();
+		queue.peek().ApplyArmor_Head();
+		queue.peek().DealDamage_Head();
+		queue.peek().DealDamage_Head();
+		queue.peek().DealDamage_Head();
+		queue.peek().getHP();
 	}
 
 

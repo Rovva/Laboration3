@@ -31,12 +31,7 @@ public class BodyPart {
 	}
 	
 	public double getAP(){
-		return AP;
-	}
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		return AP * 10;
 	}
 
 }

@@ -5,11 +5,11 @@ import java.util.PriorityQueue;
 
 public class EventHandler {
 
-	public static int id = 0;
+	public int id = 0;
 	
-	public static PriorityQueue<Player> queue = new PriorityQueue<Player>();
+	public ArrayList<Player> queue = new ArrayList<Player>();
 	
-	public static ArrayList players = new ArrayList();
+	public ArrayList<Player> players = new ArrayList<Player>();
 	
 	public Player[][] battleRoom = new Player[10][2];
 	
@@ -22,7 +22,7 @@ public class EventHandler {
 		return p.getFighting();
 	}
 	
-	public static void newPlayer(){
+	public void newPlayer(){
 		Player temp = new Player(id);
 		players.add(temp);
 		queue.add(temp);
@@ -30,58 +30,21 @@ public class EventHandler {
 		id++;
 	}
 	
-	public void startMatch(){
-		
-		if (queue.size() >= 2){
-			loop:
-			for (int i = 0; i < battleRoom.length; i++){
-				
-				if (battleRoom[i] == null){
-					
-					battleRoom[i][0] = queue.poll();
-					battleRoom[i][1] = queue.poll();
-					battleRoom[i][0].setFighting();
-					battleRoom[i][1].setFighting();
-					System.out.println("Battle commenced! ==" + battleRoom[i][0].getID() + " VS " + battleRoom[i][1].getID() + "==");
-					break loop;
-					
-				}
-				
-			}	
-			
-		}
-		
-		else{
-			System.out.println("Not enough available players.");
-		}
+	public ArrayList<Player> getQueue(){
+		return queue;
 	}
 	
-	public static void main(String[] args) {
-		newPlayer();
-		newPlayer();
-		queue.peek().DealDamage_Head();
-		queue.peek().getHP();
-		queue.peek().ApplyArmor_Head();
-		queue.peek().ApplyArmor_Head();
-		queue.peek().ApplyArmor_Head();
-		queue.peek().DealDamage_Head();
-		queue.peek().DealDamage_Head();
-		queue.peek().DealDamage_Head();
-		queue.peek().DealDamage_Head();
-		queue.peek().getHP();
-		queue.peek().ApplyArmor_Head();
-		queue.peek().ApplyArmor_Head();
-		queue.peek().ApplyArmor_Head();
-		queue.peek().ApplyArmor_Head();
-		queue.peek().ApplyArmor_Head();
-		queue.peek().ApplyArmor_Head();
-		queue.peek().ApplyArmor_Head();
-		queue.peek().ApplyArmor_Head();
-		queue.peek().DealDamage_Head();
-		queue.peek().DealDamage_Head();
-		queue.peek().DealDamage_Head();
-		queue.peek().getHP();
+	public Player[][] getbattleRoom(){
+		return battleRoom;
 	}
+	
+	public int getID(){
+		return id;
+	}
+	
+	
+	
+	
 
 
 }

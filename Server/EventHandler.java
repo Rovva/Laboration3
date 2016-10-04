@@ -25,9 +25,13 @@ public class EventHandler {
 	public void newPlayer(){
 		Player temp = new Player(id);
 		players.add(temp);
-		queue.add(temp);
 		System.out.println("Player "+id+" created! ^^");
+		readyPlayer(id); //THIS METHOD IS TEMPORARY! WILL BE USED A "READY" CLIENT.
 		id++;
+	}
+	
+	public void readyPlayer(int id){
+		queue.add(players.get(id));
 	}
 	
 	public ArrayList<Player> getQueue(){

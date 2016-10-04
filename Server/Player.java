@@ -8,12 +8,12 @@ public class Player {
 	private int HP;
 	private int availableAP;
 	private boolean Fighting;
-	BodyPart Head;
-	BodyPart Torso;
-	BodyPart LeftArm;
-	BodyPart RightArm;
-	BodyPart LeftLeg;
-	BodyPart RightLeg;
+	private BodyPart Head;
+	private BodyPart Torso;
+	private BodyPart LeftArm;
+	private BodyPart RightArm;
+	private BodyPart LeftLeg;
+	private BodyPart RightLeg;
 	
 	public Player(int id){
 		this.id = id;
@@ -28,9 +28,9 @@ public class Player {
 		RightLeg = new BodyPart("RightLeg");
 	}
 	
-	public void DealDamage_Head(){
+	public void DealDamage(BodyPart part){
 		
-		if (Head.getHP() <= 0){
+		if (part.getHP() <= 0){
 			System.out.println("That body part is demolished");
 		}
 		
@@ -39,12 +39,12 @@ public class Player {
 			// nextInt is normally exclusive of the top value,
 			// so add 1 to make it inclusive
 			int dmg = ThreadLocalRandom.current().nextInt(1, 6 + 1); // Roll D6
-			dmg = Head.damage(dmg);									 // Check armor on body part
+			dmg = part.damage(dmg);									 // Check armor on body part
 			HP = HP - dmg;
 			System.out.println(id + " took " + dmg + " points of damage!");
 			
-			if (Head.getHP() <= 0){
-				System.out.println(id + "'s " + Head.getName() + " is destroyed!");
+			if (part.getHP() <= 0){
+				System.out.println(id + "'s " + part.getName() + " is destroyed!");
 			}
 			
 		}
@@ -53,12 +53,12 @@ public class Player {
 		
 	}
 	
-	public void ApplyArmor_Head(){
+	public void ApplyArmor(BodyPart part, int amount){
 		
-		if (availableAP > 0){
-			availableAP = availableAP - 1;
-			Head.addAP();
-			System.out.println("CLANG CLANG! Head AC+1! Current AC on Helmet: " + Head.getAP() );
+		if (availableAP >= amount){
+			availableAP = availableAP - amount;
+			part.addAP(amount);
+			System.out.println("CLANG CLANG! Head AC+ "+ amount + "! Current AC on Helmet: " + part.getAP() );
 			System.out.println("Remaining AP points to spend: " + availableAP);
 		}
 		else{
@@ -84,7 +84,34 @@ public class Player {
 	}
 	public void getHP(){
 		System.out.println("Player "+ getID() + ", has " + HP + " HP Remaining.");
-		System.out.println("His head, has " + Head.getHP() + " HP Remaining.");
+	}
+	
+	public void getHP(BodyPart part){
+		System.out.println("Player " + id + "'s " + part.getName() + ", has " + part.getHP() + " HP Remaining.");
+	}
+	
+	public BodyPart getHead(){
+		return Head;
+	}
+	
+	public BodyPart getTorso(){
+		return Torso;
+	}
+	
+	public BodyPart getLeftArm(){
+		return LeftArm;
+	}
+	
+	public BodyPart getRightArm(){
+		return RightArm;
+	}
+	
+	public BodyPart getLeftLeg(){
+		return LeftLeg;
+	}
+	
+	public BodyPart getRightLeg(){
+		return RightLeg;
 	}
 
 }

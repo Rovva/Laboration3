@@ -18,12 +18,12 @@ public class startMatch {
 
 			for (int i = 0; i < lol.battleRoom.length; i++){
 				
-				if (lol.battleRoom[i] == null){
+				if (lol.battleRoom[i][0] == null){
 					
-					lol.battleRoom[i][0] = lol.queue.get(i);
-					lol.queue.remove(i);
-					lol.battleRoom[i][1] = lol.queue.get(i);
-					lol.queue.remove(i);
+					lol.battleRoom[i][0] = lol.queue.get(0);
+					lol.queue.remove(0);
+					lol.battleRoom[i][1] = lol.queue.get(0);
+					lol.queue.remove(0);
 					lol.battleRoom[i][0].setFighting();
 					lol.battleRoom[i][1].setFighting();
 					System.out.println("Battle commenced! ==" + lol.battleRoom[i][0].getID() + " VS " + lol.battleRoom[i][1].getID() + "==");

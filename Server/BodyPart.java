@@ -26,8 +26,8 @@ public class BodyPart {
 		return HP;
 	}
 	
-	public void addAP(){
-		AP = AP + 0.1;
+	public void addAP(int i){
+		this.AP = AP + (i / 10);
 	}
 	
 	public int getAP(){

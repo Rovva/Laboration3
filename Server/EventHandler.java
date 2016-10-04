@@ -1,5 +1,6 @@
 package Server;
 
+import java.util.ArrayList;
 import java.util.PriorityQueue;
 
 public class EventHandler {
@@ -7,7 +8,8 @@ public class EventHandler {
 	public static int id = 0;
 	
 	public static PriorityQueue<Player> queue = new PriorityQueue<Player>();
-
+	
+	public static ArrayList players = new ArrayList();
 	
 	public Player[][] battleRoom = new Player[10][2];
 	
@@ -21,9 +23,9 @@ public class EventHandler {
 	}
 	
 	public static void newPlayer(){
-		
-		Player newName = new Player(id);
-		queue.add(newName);
+		Player temp = new Player(id);
+		players.add(temp);
+		queue.add(temp);
 		System.out.println("Player "+id+" created! ^^");
 		id++;
 	}
@@ -34,7 +36,7 @@ public class EventHandler {
 			loop:
 			for (int i = 0; i < battleRoom.length; i++){
 				
-				if (battleRoom[i] != null){
+				if (battleRoom[i] == null){
 					
 					battleRoom[i][0] = queue.poll();
 					battleRoom[i][1] = queue.poll();
@@ -55,6 +57,7 @@ public class EventHandler {
 	}
 	
 	public static void main(String[] args) {
+		newPlayer();
 		newPlayer();
 		queue.peek().DealDamage_Head();
 		queue.peek().getHP();

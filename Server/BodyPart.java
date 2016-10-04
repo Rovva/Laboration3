@@ -30,8 +30,8 @@ public class BodyPart {
 		AP = AP + 0.1;
 	}
 	
-	public double getAP(){
-		return AP * 10;
+	public int getAP(){
+		return (int)Math.round(AP * 10);
 	}
 
 }

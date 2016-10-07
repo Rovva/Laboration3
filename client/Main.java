@@ -10,5 +10,4 @@ public class Main {
 		Module mod = new Module();
 		GUI lol = new GUI(mod);
 	}
-
 }

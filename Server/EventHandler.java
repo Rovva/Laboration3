@@ -1,7 +1,6 @@
 package Server;
 
 import java.util.ArrayList;
-import java.util.PriorityQueue;
 
 public class EventHandler {
 
@@ -18,19 +17,20 @@ public class EventHandler {
 		
 	}
 	
-	public boolean checkPlayerStatus(Player p){
+	public synchronized boolean checkPlayerStatus(Player p){
 		return p.getFighting();
 	}
 	
-	public void newPlayer(){
+	public synchronized void newPlayer(){
 		Player temp = new Player(id);
 		players.add(temp);
 		System.out.println("Player "+id+" created! ^^");
 		readyPlayer(id); //THIS METHOD IS TEMPORARY! WILL BE USED A "READY" CLIENT.
 		id++;
+		
 	}
 	
-	public void readyPlayer(int id){
+	public synchronized void readyPlayer(int id){
 		queue.add(players.get(id));
 	}
 	

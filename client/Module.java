@@ -1,5 +1,6 @@
 package client;
 
+import java.io.IOException;
 import java.util.Observable;
 
 public class Module extends Observable {
@@ -7,6 +8,7 @@ public class Module extends Observable {
 	String currentState;
 	int playerID, currentHP, armorPoints, maxArmorPoints;
 	int[] bodyparts = new int[6];
+	Client client = new Client();
 	
 	public Module() {
 		currentState = "Unconnected";
@@ -17,9 +19,10 @@ public class Module extends Observable {
 		notifyObservers();
 	}
 	
-	void connectToServer(String ipadress) {
+	void connectToServer(String ipadress) throws IOException {
 		// Store response from server
 		//String status = "Connected";
+		client.Connect(ipadress);
 		setState("Connecting");
 		//return status;
 	}

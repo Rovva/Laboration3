@@ -387,7 +387,6 @@ public class GUI extends JFrame implements Observer, ActionListener {
 			
 			// Add label and buttons
 			contentPane.add(attackLabel);
-			
 			contentPane.add(attackHead);
 			contentPane.add(attackLeftArm);
 			contentPane.add(attackTorso);
@@ -439,7 +438,12 @@ public class GUI extends JFrame implements Observer, ActionListener {
 		String op = arg0.getActionCommand();
 		if(op == "Connect") {
 			ipAdress = JOptionPane.showInputDialog("Adress:port");
-			mod.connectToServer(ipAdress);
+			try {
+				mod.connectToServer(ipAdress);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} else if(op == "Reset") {
 			mod.resetArmorPoints();
 		} else if(op == "Ready!") {

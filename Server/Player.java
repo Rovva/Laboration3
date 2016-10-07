@@ -82,8 +82,8 @@ public class Player {
 			Fighting = true;
 		}
 	}
-	public void getHP(){
-		System.out.println("Player "+ getID() + ", has " + HP + " HP Remaining.");
+	public String getHP(){
+		return ("Player "+ getID() + ", has " + HP + " HP Remaining.");
 	}
 	
 	public void getHP(BodyPart part){

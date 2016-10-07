@@ -4,3 +4,6 @@
 /EchoServer.class
 /startMatch.class
 /Main.class
+/Server.class
+/ServerThread.class
+/Protocol.class

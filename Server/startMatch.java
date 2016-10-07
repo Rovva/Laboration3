@@ -28,17 +28,12 @@ public class startMatch {
 					lol.battleRoom[i][1].setFighting();
 					System.out.println("Battle commenced! ==" + lol.battleRoom[i][0].getID() + " VS " + lol.battleRoom[i][1].getID() + "==");
 					break;
-					
 				}
-				
 			}	
-			
 		}
 		
 		else{
 			System.out.println("Not enough available players.");
 		}
 	}
-
-
 }

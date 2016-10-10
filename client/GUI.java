@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -495,8 +496,18 @@ public class GUI extends JFrame implements Observer, ActionListener {
 			waitGUI();
 			mod.sendArmorPoints();
 			System.out.println("wait");
-		} else if(moduleGameState.equals("Connected/FightWait") && this.guiState == "Connected/Fightwait") {
 			mod.setReady();
+		} else if(moduleGameState.equals("Connected/FightWait") && this.guiState == "Connected/Fightwait") {
+			while (true){
+				try {
+					Thread.sleep(30000);
+					
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
 		} else if(moduleGameState.equals("Connected/Fighting") && this.guiState != "Connected/Fighting") {
 			fightingGUI();
 		} else if(moduleGameState.equals("Connected/Fighting") && this.guiState == "Connected/Fighting") {

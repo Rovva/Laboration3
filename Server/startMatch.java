@@ -4,30 +4,23 @@ import java.util.ArrayList;
 
 public class startMatch {
 	
-	EventHandler lol;
 	
-	
-	public startMatch(EventHandler lol){
-		this.lol = lol;
-		
-	}
-	
-	public void fight(){
+	public static synchronized int fight(){
 
-		if (lol.queue.size() >= 2){
+		if (EventHandler.queue.size() >= 2){
 
-			for (int i = 0; i < lol.battleRoom.length; i++){
+			for (int i = 0; i < EventHandler.battleRoom.length; i++){
 				
-				if (lol.battleRoom[i][0] == null){
+				if (EventHandler.battleRoom[i][0] == null){
 					
-					lol.battleRoom[i][0] = lol.queue.get(0);
-					lol.queue.remove(0);
-					lol.battleRoom[i][1] = lol.queue.get(0);
-					lol.queue.remove(0);
-					lol.battleRoom[i][0].setFighting();
-					lol.battleRoom[i][1].setFighting();
-					System.out.println("Battle commenced! ==" + lol.battleRoom[i][0].getID() + " VS " + lol.battleRoom[i][1].getID() + "==");
-					break;
+					EventHandler.battleRoom[i][0] = EventHandler.queue.get(0);
+					EventHandler.queue.remove(0);
+					EventHandler.battleRoom[i][1] = EventHandler.queue.get(0);
+					EventHandler.queue.remove(0);
+					EventHandler.battleRoom[i][0].setFighting();
+					EventHandler.battleRoom[i][1].setFighting();
+					System.out.println("Battle commenced! ==" + EventHandler.battleRoom[i][0].getID() + " VS " + EventHandler.battleRoom[i][1].getID() + "==");
+					return i;
 				}
 			}	
 		}
@@ -35,5 +28,6 @@ public class startMatch {
 		else{
 			System.out.println("Not enough available players.");
 		}
+		return -1;
 	}
 }

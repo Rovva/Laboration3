@@ -12,10 +12,13 @@ public class Protocol {
 	EventHandler ble = new EventHandler();
     private static final int WAITING = 0;
     private static final int SENTID = 1;
-    private static final int SENTCLUE = 2;
-    private static final int ANOTHER = 3;
+    private static final int APPLIEDARMOR = 2;
+    private static final int READY = 3;
+    private static final int FIGHTING_YOUR_TURN = 4;
+    private static final int FIGHTING_OTHER_TURN = 4;
+    private static final int ANOTHER = 5;
  
-    private static final int NUMJOKES = 5;
+    private static final int NUMJOKES = 7;
  
     private int state = WAITING;
     private int currentJoke = 0;
@@ -45,12 +48,25 @@ public class Protocol {
         	ble.players.get(Integer.parseInt(temp[1])).ApplyArmor(temp[8], Integer.parseInt(temp[9])); // Right arm
         	ble.players.get(Integer.parseInt(temp[1])).ApplyArmor(temp[10], Integer.parseInt(temp[11])); // Left leg
         	ble.players.get(Integer.parseInt(temp[1])).ApplyArmor(temp[12], Integer.parseInt(temp[13])); // Right leg
-        	state = SENTCLUE;
-        } else if (state == SENTCLUE && theInput.contains("Ready")) {
+        	state = APPLIEDARMOR;
+        } else if (state == APPLIEDARMOR && theInput.contains("Ready")) {
             
         	String[] temp = theInput.split(" ");
         	ble.readyPlayer(Integer.parseInt(temp[1]));
+        	int temp2 = startMatch.fight();
+        	if (startMatch.fight() > -1){
+        		if(EventHandler.battleRoom[temp2][0] == EventHandler.players.get(Integer.parseInt(temp[1])))
+        			state = FIGHTING_YOUR_TURN;
+        		else{
+        			state = FIGHTING_OTHER_TURN;
+        		}
+        	}
+        	else{
+        		state = READY;
+        	}
         	
+        	
+
         } else if (state == ANOTHER && theInput == "bajs") {
             if (theInput.equalsIgnoreCase("y")) {
                 theOutput = "Knock! Knock!";

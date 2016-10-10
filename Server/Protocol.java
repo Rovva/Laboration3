@@ -35,7 +35,7 @@ public class Protocol {
             state = SENTID;
             int tempID = EventHandler.id -1;
             theOutput = "ID: " + (EventHandler.id - 1) + " AP: " + ble.players.get(tempID).getArmorPoints();
-        } else if (state == SENTID && theInput.contains("Sending Armor")) {
+        } else if (state == SENTID && theInput.contains("Armor")) {
             System.out.println("Sätter in armor");
         	String[] temp = theInput.split(" ");
         	ble.players.get(Integer.parseInt(temp[1])).ApplyArmor(temp[2], Integer.parseInt(temp[3])); // Head

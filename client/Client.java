@@ -97,7 +97,7 @@ public class Client {
 			}
 		}
 		
-		public void sendReady(String id) {
+		public void sendReady(int id) {
 			String temp;
 			temp = "Ready " + id;
 			try {

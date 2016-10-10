@@ -96,6 +96,10 @@ public class Module extends Observable {
 		client.sendArmorToServer(bodyparts, playerID);
 	}
 	
+	void setReady() {
+		client.sendReady(playerID);
+	}
+	
 	void resetArmorPoints() {
 		this.armorPoints = 10;
 		for(int i = 0; i <= 5; i++) {

@@ -53,9 +53,23 @@ public class Player {
 		
 	}
 	
-	public void ApplyArmor(BodyPart part, int amount){
+	public void ApplyArmor(String bodypart, int amount){
 		
-		if (availableAP >= amount){
+		if(bodypart.equals("Head")) {
+			Head.addAP(amount);
+		} else if(bodypart.equals("Left_arm")) {
+			LeftArm.addAP(amount);
+		} else if(bodypart.equals("Torso")) {
+			Torso.addAP(amount);
+		} else if(bodypart.equals("Right_arm")) {
+			RightArm.addAP(amount);
+		} else if(bodypart.equals("Left_leg")) {
+			LeftLeg.addAP(amount);
+		} else if(bodypart.equals("Right_leg")) {
+			RightLeg.addAP(amount);
+		}
+		
+		/*if (availableAP >= amount){
 			availableAP = availableAP - amount;
 			part.addAP(amount);
 			System.out.println("CLANG CLANG! Head AC+ "+ amount + "! Current AC on Helmet: " + part.getAP() );
@@ -63,11 +77,15 @@ public class Player {
 		}
 		else{
 			System.out.println("You don't have any available Armor Points left!");
-		}
+		}*/
 	}
 	
 	public int getID(){
 		return id;
+	}
+	
+	public int getArmorPoints() {
+		return this.availableAP;
 	}
 	
 	public boolean getFighting(){

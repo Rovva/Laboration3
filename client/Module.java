@@ -13,9 +13,6 @@ public class Module extends Observable {
 	
 	public Module() {
 		currentState = "Unconnected";
-		armorPoints = 10;
-		maxArmorPoints = 10;
-		
 		setChanged();
 		notifyObservers();
 	}
@@ -24,14 +21,20 @@ public class Module extends Observable {
 		// Store response from server
 		//String status = "Connected";
 		client.Connect(ipadress);
-		playerID = client.newPlayer();
-		System.out.println(playerID + " bajs");
+		int[] temp = client.newPlayer();
+		playerID = temp[0];
+		maxArmorPoints = temp[1];
+		armorPoints = maxArmorPoints;
 		setState("Connecting");
 		//return status;
 	}
 	
 	boolean checkConnection() {
-		return true;
+		if (client.checkCurrentConnection().equals("PING OK")) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	String getState() {
@@ -89,13 +92,15 @@ public class Module extends Observable {
 		}
 	}
 	
+	void sendArmorPoints() {
+		client.sendArmorToServer(bodyparts, playerID);
+	}
+	
 	void resetArmorPoints() {
 		this.armorPoints = 10;
 		for(int i = 0; i <= 5; i++) {
 			bodyparts[i] = 0;
 		}
-		setChanged();
-		notifyObservers();
 	}
 	
 	int dealDamage(String bodypart) {

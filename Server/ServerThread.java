@@ -27,6 +27,7 @@ public class ServerThread extends Thread {
             out.flush();
             
             while (inputLine != null) {
+                inputLine = in2.readUTF();
                 outputLine = proto.processInput(inputLine);
                 out.writeUTF(outputLine);
                 out.flush();

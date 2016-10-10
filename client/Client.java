@@ -48,25 +48,63 @@ public class Client {
 	            System.exit(1);
 	        }
 		}
-		
-		boolean checkConnection() {
-			return false;
-		}
 
 
-		public int newPlayer() {
+		public int[] newPlayer() {
 			fromUser = "NEW_CLIENT";
 			String bla;
 			String[] bla2;
+			int[] temp = new int[2];
 			try {
 				out.writeUTF(fromUser);
 				out.flush();
 				bla = in.readUTF();
-				return Integer.parseInt(bla);
+				System.out.println(bla);
+				bla2 = bla.split(" ");
+				temp[0] = Integer.parseInt(bla2[1]);
+				temp[1] = Integer.parseInt(bla2[3]);
+				return temp;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			return 666;
+			temp[0] = 666;
+			return temp;
+		}
+		
+		public String checkCurrentConnection() {
+			fromUser = "PING";
+			try {
+				out.writeUTF(fromUser);
+				out.flush();
+				return in.readUTF();
+			} catch (IOException e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+		
+		public void sendArmorToServer(int[] armor, int playerID) {
+			String temp;
+			try {
+				temp = "Armor " + playerID + " Head " + armor[0] + " Left_arm " + armor[1] + " Torso " + armor[2] + " Right_arm " + armor[3]
+						 + " Left_leg " + armor[4] + " Right_leg " + armor[5];
+				out.writeUTF(temp);
+				out.flush();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		public void sendReady(String id) {
+			String temp;
+			temp = "Ready " + id;
+			try {
+				out.writeUTF(temp);
+				out.flush();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 }

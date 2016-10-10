@@ -493,6 +493,7 @@ public class GUI extends JFrame implements Observer, ActionListener {
 			getArmorLabels();
 		} else if(moduleGameState.equals("Connected/FightWait") && this.guiState != "Connected/Fightwait") {
 			waitGUI();
+			mod.sendArmorPoints();
 			System.out.println("wait");
 		} else if(moduleGameState.equals("Connected/FightWait") && this.guiState == "Connected/Fightwait") {
 			

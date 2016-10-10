@@ -28,30 +28,29 @@ public class Protocol {
                                  "Is there an echo in here?" };
  
     public String processInput(String theInput) {
-        String theOutput = "bajs";
+    	System.out.println(theInput);
+        String theOutput = "OK";
         if (state == WAITING && theInput.equals("NEW_CLIENT")) {
         	ble.newPlayer();
             state = SENTID;
-            theOutput = (String.valueOf((EventHandler.id - 1)));
-        } else if (state == SENTID && theInput == "bajs") {
-            if (theInput.equalsIgnoreCase("Who's there?")) {
-                theOutput = clues[currentJoke];
-                state = SENTCLUE;
-            } else {
-                theOutput = "You're supposed to say \"Who's there?\"! " +
-                "Try again. Knock! Knock!";
-            }
-        } else if (state == SENTCLUE && theInput == "bajs") {
-            if (theInput.equalsIgnoreCase(clues[currentJoke] + " who?")) {
-                theOutput = answers[currentJoke] + " Want another? (y/n)";
-                state = ANOTHER;
-            } else {
-                theOutput = "You're supposed to say \"" + 
-                clues[currentJoke] + 
-                " who?\"" + 
-                "! Try again. Knock! Knock!";
-                state = SENTID;
-            }
+            int tempID = EventHandler.id -1;
+            theOutput = "ID: " + (EventHandler.id - 1) + " AP: " + ble.players.get(tempID).getArmorPoints();
+        } else if (state == SENTID && theInput.contains("Sending Armor")) {
+            System.out.println("Sätter in armor");
+        	String[] temp = theInput.split(" ");
+        	ble.players.get(Integer.parseInt(temp[1])).ApplyArmor(temp[2], Integer.parseInt(temp[3])); // Head
+        	System.out.println("Storing Head: " + temp[2] + temp[3]);
+        	ble.players.get(Integer.parseInt(temp[1])).ApplyArmor(temp[4], Integer.parseInt(temp[5])); // Left arm
+        	ble.players.get(Integer.parseInt(temp[1])).ApplyArmor(temp[6], Integer.parseInt(temp[7])); // Torso
+        	ble.players.get(Integer.parseInt(temp[1])).ApplyArmor(temp[8], Integer.parseInt(temp[9])); // Right arm
+        	ble.players.get(Integer.parseInt(temp[1])).ApplyArmor(temp[10], Integer.parseInt(temp[11])); // Left leg
+        	ble.players.get(Integer.parseInt(temp[1])).ApplyArmor(temp[12], Integer.parseInt(temp[13])); // Right leg
+        	state = SENTCLUE;
+        } else if (state == SENTCLUE && theInput.contains("Ready")) {
+            
+        	String[] temp = theInput.split(" ");
+        	ble.readyPlayer(Integer.parseInt(temp[1]));
+        	
         } else if (state == ANOTHER && theInput == "bajs") {
             if (theInput.equalsIgnoreCase("y")) {
                 theOutput = "Knock! Knock!";
@@ -64,6 +63,9 @@ public class Protocol {
                 theOutput = "Bye.";
                 state = WAITING;
             }
+        } else if (theInput.equals("PING")) {
+        	System.out.println("PING OK");
+        	theOutput = "PING OK";
         }
         return theOutput;
     }

@@ -109,6 +109,13 @@ public class Client {
 		}
 		public void checkReady(int id){
 			String temp;
-			temp = ""
+			temp = "Recheck " + id;
+			try {
+				out.writeUTF(temp);
+				out.flush();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
+
 }

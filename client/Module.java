@@ -9,10 +9,11 @@ public class Module extends Observable {
 	String currentState;
 	int playerID, currentHP, armorPoints, maxArmorPoints;
 	int[] bodyparts = new int[6];
-	Client client = new Client();
+	Client client;
 	
 	public Module() {
 		currentState = "Unconnected";
+		client = new Client();
 		setChanged();
 		notifyObservers();
 	}
@@ -98,6 +99,10 @@ public class Module extends Observable {
 	
 	void setReady() {
 		client.sendReady(playerID);
+	}
+	
+	void sendRecheck() {
+		client.checkReady(playerID);
 	}
 	
 	void resetArmorPoints() {

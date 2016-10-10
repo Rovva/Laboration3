@@ -501,7 +501,7 @@ public class GUI extends JFrame implements Observer, ActionListener {
 			while (true){
 				try {
 					Thread.sleep(30000);
-					
+					mod.sendRecheck();
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

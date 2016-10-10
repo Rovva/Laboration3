@@ -54,20 +54,32 @@ public class Protocol {
         	String[] temp = theInput.split(" ");
         	ble.readyPlayer(Integer.parseInt(temp[1]));
         	int temp2 = startMatch.fight();
-        	if (startMatch.fight() > -1){
-        		if(EventHandler.battleRoom[temp2][0] == EventHandler.players.get(Integer.parseInt(temp[1])))
+        	if (startMatch.fight() > -1) {
+        		if(EventHandler.battleRoom[temp2][0] == EventHandler.players.get(Integer.parseInt(temp[1]))) {
         			state = FIGHTING_YOUR_TURN;
-        		else{
+        			System.out.println("Your turn.");
+        		} else {
         			state = FIGHTING_OTHER_TURN;
+        			System.out.println("His turn.");
         		}
-        	}
-        	else{
+        	} else {
         		state = READY;
         	}
         	
-        	
-
-        } else if (state == ANOTHER && theInput == "bajs") {
+        } else if (state == READY && theInput.contains("Recheck")) {
+        	int temp = Integer.parseInt(theInput.split(" ")[1]);
+        	int temp2 = startMatch.fight();
+        	if (startMatch.fight() > -1) {
+        		if(EventHandler.battleRoom[temp2][0] == EventHandler.players.get(temp)) {
+        			state = FIGHTING_YOUR_TURN;
+        		} else {
+        			state = FIGHTING_OTHER_TURN;
+        		}
+        	} else {
+        		state = READY;
+        	}
+        }
+        else if (state == ANOTHER && theInput == "bajs") {
             if (theInput.equalsIgnoreCase("y")) {
                 theOutput = "Knock! Knock!";
                 if (currentJoke == (NUMJOKES - 1))

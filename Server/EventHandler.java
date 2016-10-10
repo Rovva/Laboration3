@@ -25,7 +25,6 @@ public class EventHandler {
 		Player temp = new Player(id);
 		players.add(temp);
 		System.out.println("Player "+id+" created! ^^");
-		readyPlayer(id); //THIS METHOD IS TEMPORARY! WILL BE USED A "READY" CLIENT.
 		id++;
 		
 	}

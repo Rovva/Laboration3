@@ -7,7 +7,7 @@ import client.Client;
 public class Module extends Observable {
 	
 	String currentState;
-	int playerID, currentHP, armorPoints, maxArmorPoints;
+	int playerID, opponentID, currentHP, armorPoints, maxArmorPoints;
 	int[] bodyparts = new int[6];
 	Client client;
 	
@@ -101,8 +101,14 @@ public class Module extends Observable {
 		client.sendReady(playerID);
 	}
 	
-	void sendRecheck() {
-		client.checkReady(playerID);
+	boolean sendRecheck() {
+		opponentID = client.checkReady(playerID);
+		if(opponentID < 0) {
+			return false;
+		} else {
+			return true;
+		}
+		
 	}
 	
 	void resetArmorPoints() {

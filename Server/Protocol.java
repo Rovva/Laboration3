@@ -54,7 +54,7 @@ public class Protocol {
         	String[] temp = theInput.split(" ");
         	ble.readyPlayer(Integer.parseInt(temp[1]));
         	int temp2 = startMatch.fight();
-        	if (startMatch.fight() > -1) {
+        	if (temp2 > -1) {
         		if(EventHandler.battleRoom[temp2][0] == EventHandler.players.get(Integer.parseInt(temp[1]))) {
         			state = FIGHTING_YOUR_TURN;
         			System.out.println("Your turn.");
@@ -67,19 +67,19 @@ public class Protocol {
         	}
         	
         } else if (state == READY && theInput.contains("Recheck")) {
-        	int temp = Integer.parseInt(theInput.split(" ")[1]);
-        	int temp2 = startMatch.fight();
-        	if (startMatch.fight() > -1) {
-        		if(EventHandler.battleRoom[temp2][0] == EventHandler.players.get(temp)) {
-        			state = FIGHTING_YOUR_TURN;
-        		} else {
-        			state = FIGHTING_OTHER_TURN;
+        	String[] temp = theInput.split(" ");
+        	for(int i = 0; i < 10; i++) {
+        		if(EventHandler.battleRoom[i][0].equals(Integer.parseInt(temp[1]))) {
+        			String temp2 = "Room " + i + " Opponent " + EventHandler.battleRoom[i][1];
+        			theOutput = temp2;
+        		} else if(EventHandler.battleRoom[i][1].equals(Integer.parseInt(temp[1]))) {
+        			String temp2 = "Room " + i + " Opponent " + EventHandler.battleRoom[i][0];
+        			System.out.println(temp2);
+        			theOutput = temp2;
         		}
-        	} else {
-        		state = READY;
         	}
-        }
-        else if (state == ANOTHER && theInput == "bajs") {
+        	
+        } else if (state == ANOTHER && theInput == "bajs") {
             if (theInput.equalsIgnoreCase("y")) {
                 theOutput = "Knock! Knock!";
                 if (currentJoke == (NUMJOKES - 1))

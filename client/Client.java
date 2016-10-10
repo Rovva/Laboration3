@@ -107,14 +107,19 @@ public class Client {
 				e.printStackTrace();
 			}
 		}
-		public void checkReady(int id){
+		public int checkReady(int id){
 			String temp;
+			String[] temp2;
 			temp = "Recheck " + id;
 			try {
 				out.writeUTF(temp);
 				out.flush();
+				temp2 = in.readUTF().split(" ");
+				return Integer.parseInt(temp2[3]);
+				
 			} catch (IOException e) {
 				e.printStackTrace();
+				return 0;
 			}
 		}
 

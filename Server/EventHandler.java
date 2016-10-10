@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 public class EventHandler {
 
-	public int id = 0;
+	public static int id = 0;
 	
-	public ArrayList<Player> queue = new ArrayList<Player>();
+	public static ArrayList<Player> queue = new ArrayList<Player>();
 	
-	public ArrayList<Player> players = new ArrayList<Player>();
+	public static ArrayList<Player> players = new ArrayList<Player>();
 	
-	public Player[][] battleRoom = new Player[10][2];
+	public static Player[][] battleRoom = new Player[10][2];
 	
 	
 	public EventHandler(){

@@ -23,6 +23,7 @@ public class Module extends Observable {
 		// Store response from server
 		//String status = "Connected";
 		client.Connect(ipadress);
+		System.out.println("TEST TEST");
 		setState("Connecting");
 		//return status;
 	}

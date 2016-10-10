@@ -15,17 +15,19 @@ public class ServerThread extends Thread {
     public void run() {
  
         try (
-            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+        	DataOutputStream out = new DataOutputStream(socket.getOutputStream());
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         ) {
             String inputLine, outputLine;
             Protocol proto = new Protocol();
             outputLine = proto.processInput(null);
-            out.println(outputLine);
+            out.writeUTF(outputLine);
+            out.flush();
  
             while ((inputLine = in.readLine()) != null) {
                 outputLine = proto.processInput(inputLine);
-                out.println(outputLine);
+                out.writeUTF(outputLine);
+                out.flush();
                 if (outputLine.equals("Bye"))
                     break;
             }

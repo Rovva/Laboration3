@@ -32,7 +32,7 @@ public class Protocol {
  
         if (state == WAITING) {
         	ble.newPlayer();
-            theOutput = "You are connected to the Stickman Tournament server! Your user ID is: " + (ble.id - 1);
+            theOutput = "You are connected to the Stickman Tournament server! Your user ID is: " + (EventHandler.id - 1);
             state = SENTID;
         } else if (state == SENTID) {
             if (theInput.equalsIgnoreCase("Who's there?")) {

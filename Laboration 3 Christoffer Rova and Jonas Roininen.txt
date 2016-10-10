@@ -1,0 +1,45 @@
+Laboration 3 made by Christoffer Rova and Jonas Roininen.
+
+The concept for our game is a turnbased strategy game where you, as the player, get a Player ID from the server.
+The player can put Armour Points on different body parts on his character.
+
+When the player is done putting 10 armor points on his character, on the different body parts,
+
+He will connect to another player, looking for a fight.
+
+Each player takes a turn, clicking the opponents body part, rolling a D6 (six sided-dice) for damage caused on that body part.
+The player who guesses the other player's weakpoints and defeats him, becomes the winner.
+
+
+
+
+We firstly based our program of the "Knock knock" example from Oracles network example:
+http://docs.oracle.com/javase/tutorial/networking/sockets/clientServer.html
+
+and modified accordingly.
+The vision of our project has not been fullfilled at the moment due to lack of time.
+
+but hopefully we will get it done by tuesday.
+
+
+Currently, you can connect to the server and get an unique ID from the server,
+so the connection is there, we create threads for each client... but the gameplay is
+not available.
+
+If you run:
+
+- server/Server.java as it is.
+and
+- client/Main.java
+
+You will be promted with the GUI, an input where you write the server's ip and port to connect to it.
+
+
+It will give the client an ID and wait for keyboard inputs due to the: "Knock knock" example.
+
+This is something we hope to fix bofore the review.
+
+
+
+With that in mind, this is the URL for our project: 
+https://drive.google.com/open?id=0B6AK--mtH1r0aE05aWNEUlFHM1k

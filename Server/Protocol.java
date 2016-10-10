@@ -28,13 +28,12 @@ public class Protocol {
                                  "Is there an echo in here?" };
  
     public String processInput(String theInput) {
-        String theOutput = null;
- 
-        if (state == WAITING) {
+        String theOutput = "bajs";
+        if (state == WAITING && theInput.equals("NEW_CLIENT")) {
         	ble.newPlayer();
-            theOutput = "You are connected to the Stickman Tournament server! Your user ID is: " + (EventHandler.id - 1);
             state = SENTID;
-        } else if (state == SENTID) {
+            theOutput = (String.valueOf((EventHandler.id - 1)));
+        } else if (state == SENTID && theInput == "bajs") {
             if (theInput.equalsIgnoreCase("Who's there?")) {
                 theOutput = clues[currentJoke];
                 state = SENTCLUE;
@@ -42,7 +41,7 @@ public class Protocol {
                 theOutput = "You're supposed to say \"Who's there?\"! " +
                 "Try again. Knock! Knock!";
             }
-        } else if (state == SENTCLUE) {
+        } else if (state == SENTCLUE && theInput == "bajs") {
             if (theInput.equalsIgnoreCase(clues[currentJoke] + " who?")) {
                 theOutput = answers[currentJoke] + " Want another? (y/n)";
                 state = ANOTHER;
@@ -53,7 +52,7 @@ public class Protocol {
                 "! Try again. Knock! Knock!";
                 state = SENTID;
             }
-        } else if (state == ANOTHER) {
+        } else if (state == ANOTHER && theInput == "bajs") {
             if (theInput.equalsIgnoreCase("y")) {
                 theOutput = "Knock! Knock!";
                 if (currentJoke == (NUMJOKES - 1))

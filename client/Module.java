@@ -2,6 +2,7 @@ package client;
 
 import java.io.IOException;
 import java.util.Observable;
+import client.Client;
 
 public class Module extends Observable {
 	
@@ -23,7 +24,8 @@ public class Module extends Observable {
 		// Store response from server
 		//String status = "Connected";
 		client.Connect(ipadress);
-		System.out.println("TEST TEST");
+		playerID = client.newPlayer();
+		System.out.println(playerID + " bajs");
 		setState("Connecting");
 		//return status;
 	}

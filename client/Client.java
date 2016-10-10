@@ -107,4 +107,8 @@ public class Client {
 				e.printStackTrace();
 			}
 		}
+		public void checkReady(int id){
+			String temp;
+			temp = ""
+		}
 }

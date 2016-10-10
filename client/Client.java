@@ -53,6 +53,7 @@ public class Client {
 			return false;
 		}
 
+
 		public int newPlayer() {
 			fromUser = "NEW_CLIENT";
 			String bla;

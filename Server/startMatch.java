@@ -14,9 +14,9 @@ public class startMatch {
 				if (EventHandler.battleRoom[i][0] == null){
 					
 					EventHandler.battleRoom[i][0] = EventHandler.queue.get(0);
-					EventHandler.queue.remove(0);
-					EventHandler.battleRoom[i][1] = EventHandler.queue.get(0);
-					EventHandler.queue.remove(0);
+					//EventHandler.queue.remove(0);
+					EventHandler.battleRoom[i][1] = EventHandler.queue.get(1);
+					//EventHandler.queue.remove(0);
 					EventHandler.battleRoom[i][0].setFighting();
 					EventHandler.battleRoom[i][1].setFighting();
 					System.out.println("Battle commenced! ==" + EventHandler.battleRoom[i][0].getID() + " VS " + EventHandler.battleRoom[i][1].getID() + "==");

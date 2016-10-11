@@ -115,9 +115,10 @@ public class Client {
 			try {
 				out.writeUTF(temp);
 				out.flush();
-				if(in.readUTF().contains("waiting")) {
+				temp = in.readUTF();
+				if(temp.contains("waiting")) {
 					return -1;
-				} else if(in.readUTF().contains("Battle")){
+				} else if(temp.contains("Room")){
 					temp2 = in.readUTF().split(" ");
 					System.out.println(temp2[2]);
 					return Integer.parseInt(temp2[3]);

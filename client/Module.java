@@ -26,6 +26,7 @@ public class Module extends Observable {
 		playerID = temp[0];
 		maxArmorPoints = temp[1];
 		armorPoints = maxArmorPoints;
+		opponentID = -1;
 		setState("Connecting");
 		//return status;
 	}

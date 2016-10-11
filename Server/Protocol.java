@@ -69,12 +69,14 @@ public class Protocol {
         } else if (state == READY && theInput.contains("Recheck")) {
         	System.out.println("CHECKING THE FUCKING ASS");
         	String[] temp = theInput.split(" ");
+        	System.out.println(temp[0] + " and " + temp[1]);
         	for(int i = 0; i < 10; i++) {
-        		if(EventHandler.battleRoom[i][0].getID() == (Integer.parseInt(temp[1]))) {
+        		if(EventHandler.battleRoom[i][0] != null && EventHandler.battleRoom[i][0].getID() == (Integer.parseInt(temp[1]))){
         			String temp2 = "Room " + i + " Opponent " + EventHandler.battleRoom[i][1].getID();
         			System.out.println(temp2);
         			theOutput = temp2;
-        		} else if(EventHandler.battleRoom[i][1].getID() == (Integer.parseInt(temp[1]))) {
+        		
+        		} else if(EventHandler.battleRoom[i][1] != null && EventHandler.battleRoom[i][1].getID() == (Integer.parseInt(temp[1]))) {
         			String temp2 = "Room " + i + " Opponent " + EventHandler.battleRoom[i][0].getID();
         			System.out.println(temp2);
         			theOutput = temp2;

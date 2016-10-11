@@ -27,6 +27,9 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.SpringLayout;
+
+import org.omg.CORBA.TIMEOUT;
+
 import javax.swing.JOptionPane;
 
 import client.Module;
@@ -515,8 +518,19 @@ public class GUI extends JFrame implements Observer, ActionListener {
 		} else if(moduleGameState.equals("Connected/FightWait") && this.guiState.equals("Connected/FightWait")) {
 			waitGUI();
 			System.out.println("Waiting...");
-			if(mod.startListenToCall()) {
-				mod.setState("Connected/Fighting");
+			loop:
+			while(true) {
+				try {
+					TimeUnit.SECONDS.sleep(1);
+					if(mod.sendRecheck()) {
+						System.out.println("LOL");
+						mod.setState("Connected/Fighting");
+						break loop;
+					}
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		} else if(moduleGameState.equals("Connected/Fighting") && this.guiState != "Connected/Fighting") {
 			fightingGUI();

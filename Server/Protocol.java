@@ -75,11 +75,11 @@ public class Protocol {
         	String[] temp = theInput.split(" ");
         	for(int i = 0; i < 10; i++) {
         		if(EventHandler.battleRoom[i][0] != null && EventHandler.battleRoom[i][0].getID() == (Integer.parseInt(temp[1]))){
-        			String temp2 = "Battle begun " + i + " vs " + EventHandler.battleRoom[i][1].getID();
+        			String temp2 = "Battle begun " + Integer.parseInt(temp[1]) + " vs " + EventHandler.battleRoom[i][0].getID();
         			System.out.println(temp2);
         			theOutput = temp2;
         		} else if(EventHandler.battleRoom[i][1] != null && EventHandler.battleRoom[i][1].getID() == (Integer.parseInt(temp[1]))) {
-        			String temp2 = "Battle begun " + i + " vs " + EventHandler.battleRoom[i][0].getID();
+        			String temp2 = "Battle begun " + Integer.parseInt(temp[1]) + " vs " + EventHandler.battleRoom[i][1].getID();
         			System.out.println(temp2);
         			theOutput = temp2;
         		} else {

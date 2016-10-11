@@ -2,6 +2,7 @@ package client;
 
 import java.io.*;
 import java.net.*;
+import java.util.concurrent.TimeUnit;
  
 public class Client {
 
@@ -116,7 +117,7 @@ public class Client {
 				out.flush();
 				if(in.readUTF().contains("waiting")) {
 					return -1;
-				} else if(in.readUTF().contains("Room")){
+				} else if(in.readUTF().contains("Battle")){
 					temp2 = in.readUTF().split(" ");
 					System.out.println(temp2[2]);
 					return Integer.parseInt(temp2[3]);
@@ -135,7 +136,10 @@ public class Client {
 			String[] temp2;
 			while(true) {
 				try {
+					TimeUnit.SECONDS.sleep(1);
+				try {
 					temp = in.readUTF();
+					System.out.println(temp);
 					if(temp != null && temp.contains("Battle")) {
 						temp2 = temp.split(" ");
 						// SERVERN SKRIKER: Battle begun 0 vs 1
@@ -147,6 +151,10 @@ public class Client {
 					}
 				} catch(IOException e) {
 					e.printStackTrace();
+				}
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 			}
 		}

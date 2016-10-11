@@ -431,7 +431,21 @@ public class GUI extends JFrame implements Observer, ActionListener {
 		contentPane.add(waiting);
 		layout.putConstraint(SpringLayout.VERTICAL_CENTER, waiting, 0, SpringLayout.VERTICAL_CENTER, contentPane);
 		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, waiting, 0, SpringLayout.HORIZONTAL_CENTER, contentPane);
-		mod.checkConnection();
+		while (true){
+			//System.out.println("LOOOOOP);
+			try {
+				Thread.sleep(1000);
+				if(mod.sendRecheck()) {
+					this.guiState = "Connected/Fighting";
+					mod.setState("Connected/Fighting");
+				}
+				
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
 	}
 	
 	@Override
@@ -453,6 +467,22 @@ public class GUI extends JFrame implements Observer, ActionListener {
 		checkBodyParts(op);
 		this.armorPoints.setText(mod.getArmorPoints() + " / " + mod.getMaxArmorPoints() + " points.");
 		arg0 = null;
+	}
+	
+	private void attackBodyPart(String op) {
+		if(op == "Head") {
+			
+		} else if (op == "Left Arm") {
+			
+		} else if (op == "Torso") {
+			
+		} else if (op == "Right Arm") {
+			
+		} else if (op == "Left Leg") {
+			
+		} else if (op == "Right Leg") {
+			
+		}
 	}
 	
 	private void checkBodyParts(String op) {
@@ -493,27 +523,13 @@ public class GUI extends JFrame implements Observer, ActionListener {
 		} else if(moduleGameState.equals("Connected/Armoring") && this.guiState == "Connected/Armoring") {
 			getArmorLabels();
 		} else if(moduleGameState.equals("Connected/FightWait") && this.guiState != "Connected/Fightwait") {
-			fightingGUI();
+			waitGUI();
 			mod.sendArmorPoints();
 			System.out.println("wait");
 			mod.setReady();
 		} else if(moduleGameState.equals("Connected/FightWait") && this.guiState == "Connected/Fightwait") {
-			while (true){
-				//System.out.println("LOOOOOP);
-				try {
-					Thread.sleep(1000);
-					if(mod.sendRecheck()) {
-						mod.setState("Connected/Fighting");
-						this.guiState = "Connected/Fighting";
-						fightingGUI();
-					}
-					
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-			}
+			waitGUI();
+			System.out.println("Waiting...");
 		} else if(moduleGameState.equals("Connected/Fighting") && this.guiState != "Connected/Fighting") {
 			fightingGUI();
 		} else if(moduleGameState.equals("Connected/Fighting") && this.guiState == "Connected/Fighting") {

@@ -115,6 +115,7 @@ public class Client {
 				out.writeUTF(temp);
 				out.flush();
 				temp2 = in.readUTF().split(" ");
+				System.out.println(temp2[2]);
 				return Integer.parseInt(temp2[3]);
 				
 			} catch (IOException e) {

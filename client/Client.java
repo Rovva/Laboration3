@@ -114,13 +114,19 @@ public class Client {
 			try {
 				out.writeUTF(temp);
 				out.flush();
-				temp2 = in.readUTF().split(" ");
-				System.out.println(temp2[2]);
-				return Integer.parseInt(temp2[3]);
-				
+				if(in.readUTF().contains("waiting")) {
+					return -1;
+				} else if(in.readUTF().contains("Room")){
+					temp2 = in.readUTF().split(" ");
+					System.out.println(temp2[2]);
+					return Integer.parseInt(temp2[3]);
+				} else {
+					return -1;
+				}
+								
 			} catch (IOException e) {
 				e.printStackTrace();
-				return 0;
+				return -1;
 			}
 		}
 

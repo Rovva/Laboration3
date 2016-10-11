@@ -38,7 +38,7 @@ public class Protocol {
             state = SENTID;
             int tempID = EventHandler.id -1;
             theOutput = "ID: " + (EventHandler.id - 1) + " AP: " + ble.players.get(tempID).getArmorPoints();
-        } else if (state == SENTID && theInput.contains("Armor")) {
+        } else if (state == SENTID && theInput.contains("Armor ")) {
             System.out.println("Sätter in armor");
         	String[] temp = theInput.split(" ");
         	ble.players.get(Integer.parseInt(temp[1])).ApplyArmor(temp[2], Integer.parseInt(temp[3])); // Head
@@ -70,14 +70,16 @@ public class Protocol {
         	System.out.println("CHECKING THE FUCKING ASS");
         	String[] temp = theInput.split(" ");
         	for(int i = 0; i < 10; i++) {
-        		if(EventHandler.battleRoom[i][0].equals(Integer.parseInt(temp[1]))) {
+        		if(EventHandler.battleRoom[i][0].getID() == (Integer.parseInt(temp[1]))) {
         			String temp2 = "Room " + i + " Opponent " + EventHandler.battleRoom[i][1].getID();
         			System.out.println(temp2);
         			theOutput = temp2;
-        		} else if(EventHandler.battleRoom[i][1].equals(Integer.parseInt(temp[1]))) {
+        		} else if(EventHandler.battleRoom[i][1].getID() == (Integer.parseInt(temp[1]))) {
         			String temp2 = "Room " + i + " Opponent " + EventHandler.battleRoom[i][0].getID();
         			System.out.println(temp2);
         			theOutput = temp2;
+        		} else {
+        			theOutput = "Keep waiting";
         		}
         	}
         	

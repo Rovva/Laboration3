@@ -99,6 +99,8 @@ public class Module extends Observable {
 	
 	void setReady() {
 		client.sendReady(playerID);
+		setChanged();
+		notifyObservers();
 	}
 	
 	boolean sendRecheck() {

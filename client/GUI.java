@@ -515,21 +515,8 @@ public class GUI extends JFrame implements Observer, ActionListener {
 		} else if(moduleGameState.equals("Connected/FightWait") && this.guiState.equals("Connected/FightWait")) {
 			waitGUI();
 			System.out.println("Waiting...");
-			while (true){
-			//System.out.println("LOOOOOP);
-			try {
-				Thread.sleep(1000);
-				if(mod.sendRecheck()) {
-					this.guiState = "Connected/Fighting";
-					mod.setState("Connected/Fighting");
-					break;
-				}
-				
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
+			if(mod.startListenToCall()) {
+				mod.setState("Connected/Fighting");
 			}
 		} else if(moduleGameState.equals("Connected/Fighting") && this.guiState != "Connected/Fighting") {
 			fightingGUI();

@@ -103,6 +103,11 @@ public class Module extends Observable {
 		notifyObservers();
 	}
 	
+	boolean startListenToCall() {
+		this.opponentID = client.listenToCall(this.playerID);
+		return true;
+	}
+	
 	boolean sendRecheck() {
 		opponentID = client.checkReady(playerID);
 		if(opponentID < 0) {

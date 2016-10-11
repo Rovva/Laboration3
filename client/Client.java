@@ -129,5 +129,26 @@ public class Client {
 				return -1;
 			}
 		}
+		
+		public int listenToCall(int playerid) {
+			String temp;
+			String[] temp2;
+			while(true) {
+				try {
+					temp = in.readUTF();
+					if(temp != null && temp.contains("Battle")) {
+						temp2 = temp.split(" ");
+						// SERVERN SKRIKER: Battle begun 0 vs 1
+						if(Integer.parseInt(temp2[2]) == playerid) {
+							return Integer.parseInt(temp2[4]);
+						} else if(Integer.parseInt(temp2[4]) == playerid) {
+							return Integer.parseInt(temp2[2]);
+						}
+					}
+				} catch(IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 
 }

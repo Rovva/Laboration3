@@ -111,6 +111,7 @@ public class Module extends Observable {
 	
 	boolean sendRecheck() {
 		opponentID = client.checkReady(playerID);
+		System.out.println(opponentID);
 		if(opponentID < 0) {
 			return false;
 		} else {
@@ -120,14 +121,14 @@ public class Module extends Observable {
 	}
 	
 	void resetArmorPoints() {
-		this.armorPoints = 10;
+		this.armorPoints = maxArmorPoints;
 		for(int i = 0; i <= 5; i++) {
 			bodyparts[i] = 0;
 		}
 	}
 	
-	int dealDamage(String bodypart) {
-		return 0;
+	void dealDamage(String bodypart) {
+		client.sendDamage(bodypart, opponentID);
 	}
 	
 }

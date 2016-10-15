@@ -15,6 +15,8 @@ public class Player {
 	private BodyPart LeftLeg;
 	private BodyPart RightLeg;
 	
+	private boolean currentTurn;
+	
 	public Player(int id){
 		this.id = id;
 		HP = 300;
@@ -28,9 +30,25 @@ public class Player {
 		RightLeg = new BodyPart("RightLeg");
 	}
 	
-	public void DealDamage(BodyPart part){
+	public void DealDamage(String part){
+		BodyPart currentBodyPart;
+		if(part.equals("Head")) {
+			currentBodyPart = this.Head;
+		} else if(part.equals("Left Arm")) {
+			currentBodyPart = this.LeftArm;
+		} else if(part.equals("Torso")) {
+			currentBodyPart = this.Torso;
+		} else if(part.equals("Right Arm")) {
+			currentBodyPart = this.RightArm;
+		} else if(part.equals("Left Leg")) {
+			currentBodyPart =  this.LeftLeg;
+		} else if(part.equals("Right Leg")) {
+			currentBodyPart = this.RightLeg;
+		} else {
+			currentBodyPart = null;
+		}
 		
-		if (part.getHP() <= 0){
+		if (currentBodyPart.getHP() <= 0){
 			System.out.println("That body part is demolished");
 		}
 		
@@ -39,12 +57,12 @@ public class Player {
 			// nextInt is normally exclusive of the top value,
 			// so add 1 to make it inclusive
 			int dmg = ThreadLocalRandom.current().nextInt(1, 6 + 1); // Roll D6
-			dmg = part.damage(dmg);									 // Check armor on body part
+			dmg = currentBodyPart.damage(dmg);									 // Check armor on body part
 			HP = HP - dmg;
 			System.out.println(id + " took " + dmg + " points of damage!");
 			
-			if (part.getHP() <= 0){
-				System.out.println(id + "'s " + part.getName() + " is destroyed!");
+			if (currentBodyPart.getHP() <= 0){
+				System.out.println(id + "'s " + currentBodyPart.getName() + " is destroyed!");
 			}
 			
 		}
@@ -131,5 +149,16 @@ public class Player {
 	public BodyPart getRightLeg(){
 		return RightLeg;
 	}
-
+	
+	public boolean getTurn() {
+		return currentTurn;
+	}
+	
+	public void setTurn() {
+		if(currentTurn == true) {
+			currentTurn = false;
+		} else {
+			currentTurn = true;
+		}
+	}
 }

@@ -159,5 +159,20 @@ public class Client {
 				}
 			}
 		}
+		
+		boolean sendDamage(String bodypart, int opponentID) {
+			try {
+				out.writeUTF("Hit " + bodypart + " Player " + opponentID);
+				if(in.readUTF().contains("DMG")) {
+					return true;
+				} else {
+					return false;
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return false;
+			}
+		}
 
 }

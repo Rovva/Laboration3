@@ -96,6 +96,14 @@ public class Protocol {
         		}
         	}
         	
+        } else if (state == READY && theInput.contains("DMG")) {
+        	String temp[] = theInput.split(" ");
+        	for(int i = 0; i < EventHandler.battleRoom.length; i++) {
+        		if(EventHandler.battleRoom[i][0].getID() == Integer.parseInt(temp[3])) {
+        			EventHandler.battleRoom[i][0].DealDamage(temp[1]);
+        			EventHandler.battleRoom[i][0].setTurn();
+        		}
+        	}
         } else if (state == ANOTHER && theInput == "bajs") {
             if (theInput.equalsIgnoreCase("y")) {
                 theOutput = "Knock! Knock!";

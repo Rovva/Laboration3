@@ -459,17 +459,17 @@ public class GUI extends JFrame implements Observer, ActionListener {
 	
 	private void attackBodyPart(String op) {
 		if(op == "Head") {
-			
+			mod.dealDamage("Head");
 		} else if (op == "Left Arm") {
-			
+			mod.dealDamage("Left Arm");
 		} else if (op == "Torso") {
-			
+			mod.dealDamage("Torso");
 		} else if (op == "Right Arm") {
-			
+			mod.dealDamage("Right Arm");
 		} else if (op == "Left Leg") {
-			
+			mod.dealDamage("Left Leg");
 		} else if (op == "Right Leg") {
-			
+			mod.dealDamage("Right Leg");
 		}
 	}
 	

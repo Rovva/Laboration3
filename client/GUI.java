@@ -435,6 +435,7 @@ public class GUI extends JFrame implements Observer, ActionListener {
 	
 	private void waitGUI() {
 		resetGUI();
+		resetGUI();
 		this.guiState = "Connected/FightWait";
 		JLabel waiting = new JLabel("Waiting for another player...");
 		contentPane.add(waiting);
@@ -529,7 +530,7 @@ public class GUI extends JFrame implements Observer, ActionListener {
 			loop:
 			while(true) {
 				try {
-					TimeUnit.MILLISECONDS.sleep(100);
+					TimeUnit.SECONDS.sleep(1);
 					if(mod.sendRecheck()) {
 						System.out.println("LOL");
 						mod.setState("Connected/Fighting");

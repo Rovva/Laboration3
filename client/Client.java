@@ -112,7 +112,7 @@ public class Client {
 		public int checkReady(int id){
 			String temp;
 			String[] temp2;
-			temp = "Recheck " + id;
+			temp = "Recheckagain " + id;
 			try {
 				out.writeUTF(temp);
 				out.flush();

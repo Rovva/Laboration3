@@ -23,9 +23,7 @@ public class StartMatch {
 					return i;
 				}
 			}	
-		}
-		
-		else{
+		} else{ 
 			System.out.println("Not enough available players.");
 		}
 		return -1;

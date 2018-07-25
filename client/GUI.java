@@ -392,11 +392,17 @@ public class GUI extends JFrame implements Observer, ActionListener {
 			// Add label and buttons
 			contentPane.add(attackLabel);
 			contentPane.add(attackHead);
+			attackHead.addActionListener(this);
 			contentPane.add(attackLeftArm);
+			attackLeftArm.addActionListener(this);
 			contentPane.add(attackTorso);
+			attackTorso.addActionListener(this);
 			contentPane.add(attackRightArm);
+			attackRightArm.addActionListener(this);
 			contentPane.add(attackLeftLeg);
+			attackLeftLeg.addActionListener(this);
 			contentPane.add(attackRightLeg);
+			attackRightLeg.addActionListener(this);
 			
 			// Place label and buttons in gui
 			layout.putConstraint(SpringLayout.NORTH, attackLabel, 5, SpringLayout.NORTH, contentPane);
@@ -454,6 +460,7 @@ public class GUI extends JFrame implements Observer, ActionListener {
 			mod.setState("Connected/FightWait");
 		}
 		checkBodyParts(op);
+		attackBodyPart(op);
 		this.armorPoints.setText(mod.getArmorPoints() + " / " + mod.getMaxArmorPoints() + " points.");
 	}
 	
@@ -491,37 +498,38 @@ public class GUI extends JFrame implements Observer, ActionListener {
 		}
 	}
 	
-	void attackBodyParts(String op) {
+	/* void attackBodyParts(String op) {
 		
-	}
+	} */
 	
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		String moduleGameState = mod.getState();
 		System.out.println(moduleGameState);
-		if(moduleGameState.equals("Unconnected")) {
+		if(moduleGameState == ("Unconnected")) {
 			connectGUI();
-		} else if(moduleGameState.equals("Connecting")) {
+		} else if(moduleGameState == ("Connecting")) {
 			connectingGUI();
 			if(mod.checkConnection()) {
 				mod.setState("Connected/Armoring");
 			}
-		} else if(moduleGameState.equals("Connected/Armoring") && this.guiState != "Connected/Armoring") {
+		} else if(moduleGameState == ("Connected/Armoring") && this.guiState != "Connected/Armoring") {
 			armorGUI();
-		} else if(moduleGameState.equals("Connected/Armoring") && this.guiState == "Connected/Armoring") {
+		} else if(moduleGameState == ("Connected/Armoring") && this.guiState == "Connected/Armoring") {
 			getArmorLabels();
-		} else if(moduleGameState.equals("Connected/FightWait") && this.guiState != "Connected/FightWait") {
+		} else if(moduleGameState == ("Connected/FightWait") && this.guiState != "Connected/FightWait") {
 			waitGUI();
 			mod.sendArmorPoints();
 			System.out.println("wait");
 			mod.setReady();
-		} else if(moduleGameState.equals("Connected/FightWait") && this.guiState.equals("Connected/FightWait")) {
+		} else if(moduleGameState == ("Connected/FightWait") && this.guiState == "Connected/FightWait") {
+			System.out.println("moduleGameState : " + moduleGameState + " this.guiState: " + this.guiState);
 			waitGUI();
 			System.out.println("Waiting...");
 			loop:
 			while(true) {
 				try {
-					TimeUnit.SECONDS.sleep(1);
+					TimeUnit.MILLISECONDS.sleep(100);
 					if(mod.sendRecheck()) {
 						System.out.println("LOL");
 						mod.setState("Connected/Fighting");
@@ -530,12 +538,15 @@ public class GUI extends JFrame implements Observer, ActionListener {
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+					break loop;
 				}
 			}
-		} else if(moduleGameState.equals("Connected/Fighting") && this.guiState != "Connected/Fighting") {
+		} else if(moduleGameState == ("Connected/Fighting") && this.guiState != "Connected/Fighting") {
+			System.out.println("moduleGameState : " + moduleGameState + " this.guiState: " + this.guiState);
 			fightingGUI();
-		} else if(moduleGameState.equals("Connected/Fighting") && this.guiState == "Connected/Fighting") {
-			
+		} else if(moduleGameState == ("Connected/Fighting") && this.guiState == "Connected/Fighting") {
+			System.out.println("moduleGameState : " + moduleGameState + " this.guiState: " + this.guiState);
+			fightingGUI();
 		} else if(moduleGameState == "Disconnect" && this.guiState != "Disconnect") {
 		//	disconnectGUI();
 		}

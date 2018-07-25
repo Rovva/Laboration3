@@ -108,6 +108,7 @@ public class Client {
 				e.printStackTrace();
 			}
 		}
+		
 		public int checkReady(int id){
 			String temp;
 			String[] temp2;
@@ -115,19 +116,22 @@ public class Client {
 			try {
 				out.writeUTF(temp);
 				out.flush();
+				
 				temp = in.readUTF();
-				if(temp.contains("waiting")) {
-					return -1;
-				} else if(temp.contains("Room")){
+
+				if(temp.contains("Room")){
 					temp2 = in.readUTF().split(" ");
 					System.out.println(temp2[2]);
 					return Integer.parseInt(temp2[3]);
-				} else {
+				} else if(temp.contains("Waiting")) {
+					return -1;
+				} else{
 					return -1;
 				}
 								
 			} catch (IOException e) {
 				e.printStackTrace();
+				System.out.println("Something went wrong while cheking ready");
 				return -1;
 			}
 		}
@@ -162,10 +166,12 @@ public class Client {
 		
 		boolean sendDamage(String bodypart, int opponentID) {
 			try {
-				out.writeUTF("Hit " + bodypart + " Player " + opponentID);
+				out.writeUTF("DMG Hit " + bodypart + " Player " + opponentID);
 				if(in.readUTF().contains("DMG")) {
+					System.out.println("Contains DMG");
 					return true;
 				} else {
+					System.out.println("Contains nothing");
 					return false;
 				}
 			} catch (IOException e) {

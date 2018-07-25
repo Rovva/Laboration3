@@ -8,7 +8,7 @@ public class BodyPart {
 	
 	public BodyPart(String name){
 		this.name = name;
-		HP = 100;
+		HP = 10;
 		AP = 0.0;
 	}
 	

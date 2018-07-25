@@ -24,7 +24,7 @@ public class EventHandler {
 	public synchronized void newPlayer(){
 		Player temp = new Player(id);
 		players.add(temp);
-		System.out.println("Player "+id+" created! ^^");
+		System.out.println("Player " + id + " created! ^^");
 		id++;
 		
 	}

@@ -128,7 +128,22 @@ public class Module extends Observable {
 	}
 	
 	void dealDamage(String bodypart) {
-		client.sendDamage(bodypart, opponentID);
+		// client.sendDamage(bodypart, opponentID);
+		if(bodypart.equals("Head")) {
+			client.sendDamage("Head", opponentID);
+		} else if(bodypart.equals("Left Arm")) {
+			client.sendDamage("Left_Arm", opponentID);
+		} else if(bodypart.equals("Torso")) {
+			client.sendDamage("Torso", opponentID);
+		} else if(bodypart.equals("Right Arm")) {
+			client.sendDamage("Right_Arm", opponentID);
+		} else if(bodypart.equals("Left Leg")) {
+			client.sendDamage("Left_Leg", opponentID);
+		} else if(bodypart.equals("Right Leg")) {
+			client.sendDamage("Right_Leg", opponentID);
+		} else {
+			System.out.println("Something weird happend with dealDamage");
+		}
 	}
 	
 }

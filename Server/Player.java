@@ -34,15 +34,15 @@ public class Player {
 		BodyPart currentBodyPart;
 		if(part.equals("Head")) {
 			currentBodyPart = this.Head;
-		} else if(part.equals("Left Arm")) {
+		} else if(part.equals("Left_Arm")) {
 			currentBodyPart = this.LeftArm;
 		} else if(part.equals("Torso")) {
 			currentBodyPart = this.Torso;
-		} else if(part.equals("Right Arm")) {
+		} else if(part.equals("Right_Arm")) {
 			currentBodyPart = this.RightArm;
-		} else if(part.equals("Left Leg")) {
+		} else if(part.equals("Left_Leg")) {
 			currentBodyPart =  this.LeftLeg;
-		} else if(part.equals("Right Leg")) {
+		} else if(part.equals("Right_Leg")) {
 			currentBodyPart = this.RightLeg;
 		} else {
 			currentBodyPart = null;
@@ -64,8 +64,6 @@ public class Player {
 			}
 			
 		}
-		
-		
 		
 	}
 	

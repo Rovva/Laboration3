@@ -3,7 +3,7 @@ package client;
 import java.io.*;
 import java.net.*;
  
-public class Client {
+public class Client_backup {
          
 		void Connect(String ipPort) throws IOException{ 
 			String toParse = ipPort;

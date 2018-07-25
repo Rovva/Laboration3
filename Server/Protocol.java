@@ -52,7 +52,7 @@ public class Protocol {
         	ble.players.get(Integer.parseInt(temp[1])).ApplyArmor(temp[12], Integer.parseInt(temp[13])); // Right leg
         	state = APPLIEDARMOR;
         } else if (state == APPLIEDARMOR && theInput.contains("Ready")) {
-            System.out.println("BAJS");
+            System.out.println("Player ready");
         	String[] temp = theInput.split(" ");
         	ble.readyPlayer(Integer.parseInt(temp[1]));
         	int temp2 = StartMatch.fight();
@@ -73,7 +73,7 @@ public class Protocol {
         	}
         	
         } else if (state == READY && theInput.contains("Recheck")) {
-        	System.out.println("CHECKING THE FUCKING ASS");
+        	System.out.println("Checking for other players");
         	String[] temp = theInput.split(" ");
         	for(int i = 0; i < 10; i++) {
         		if(EventHandler.battleRoom[i][0] != null && EventHandler.battleRoom[i][0].getID() == (Integer.parseInt(temp[1]))){

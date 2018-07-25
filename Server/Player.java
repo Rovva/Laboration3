@@ -50,9 +50,7 @@ public class Player {
 		
 		if (currentBodyPart.getHP() <= 0){
 			System.out.println("That body part is demolished");
-		}
-		
-		else{
+		} else {
 			
 			// nextInt is normally exclusive of the top value,
 			// so add 1 to make it inclusive

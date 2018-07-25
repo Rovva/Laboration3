@@ -1,11 +1,13 @@
-package Server;
+package server;
 
 import java.net.*;
+
+import server.BodyPart;
+import server.EventHandler;
+import server.Player;
+import server.StartMatch;
+
 import java.io.*;
-import Server.EventHandler;
-import Server.Player;
-import Server.BodyPart;
-import Server.startMatch;
  
 public class Protocol {
 	
@@ -53,7 +55,7 @@ public class Protocol {
             System.out.println("BAJS");
         	String[] temp = theInput.split(" ");
         	ble.readyPlayer(Integer.parseInt(temp[1]));
-        	int temp2 = startMatch.fight();
+        	int temp2 = StartMatch.fight();
         	if (temp2 > -1) {
         		if(EventHandler.battleRoom[temp2][0] == EventHandler.players.get(Integer.parseInt(temp[1]))) {
         			state = FIGHTING_YOUR_TURN;

@@ -1,9 +1,10 @@
-package Server;
+package server;
 
-import Server.EventHandler;
-import Server.Player;
-import Server.BodyPart;
-import Server.startMatch;
+import server.BodyPart;
+import server.EventHandler;
+import server.Player;
+import server.Server;
+import server.startMatch;
 
 public class Main {
 

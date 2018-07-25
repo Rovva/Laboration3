@@ -1,8 +1,8 @@
-package Server;
+package server;
 
 import java.util.ArrayList;
 
-public class startMatch {
+public class StartMatch {
 	
 	
 	public static synchronized int fight(){

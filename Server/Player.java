@@ -29,7 +29,7 @@ public class Player {
 		LeftLeg = new BodyPart("LeftLeg");
 		RightLeg = new BodyPart("RightLeg");
 	}
-	
+	// Denna funktion ser till att det inte finns mellanslag på namnen för kroppsdelarna.
 	public void DealDamage(String part){
 		BodyPart currentBodyPart;
 		if(part.equals("Head")) {
@@ -66,7 +66,7 @@ public class Player {
 		}
 		
 	}
-	
+	// Likadant som ovan, byter ut mellanslag till underline.
 	public void ApplyArmor(String bodypart, int amount){
 		
 		if(bodypart.equals("Head")) {
@@ -82,7 +82,7 @@ public class Player {
 		} else if(bodypart.equals("Right_leg")) {
 			RightLeg.addAP(amount);
 		}
-		
+		// Denna kod bör tas bort.
 		/*if (availableAP >= amount){
 			availableAP = availableAP - amount;
 			part.addAP(amount);
@@ -114,10 +114,11 @@ public class Player {
 			Fighting = true;
 		}
 	}
+	// Denna funktion måste implementeras.
 	public String getHP(){
 		return ("Player "+ getID() + ", has " + HP + " HP Remaining.");
 	}
-	
+	// Den här likaså.
 	public void getHP(BodyPart part){
 		System.out.println("Player " + id + "'s " + part.getName() + ", has " + part.getHP() + " HP Remaining.");
 	}

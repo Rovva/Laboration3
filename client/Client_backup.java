@@ -1,5 +1,5 @@
 package client;
-
+// Vi kan nog ta bort den här.
 import java.io.*;
 import java.net.*;
  

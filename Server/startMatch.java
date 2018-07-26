@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class StartMatch {
 	
-	
+	// Jag tror vi måste fixa denna på något sätt.
 	public static synchronized int fight(){
 
 		if (EventHandler.queue.size() >= 2){

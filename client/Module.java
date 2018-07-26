@@ -109,6 +109,7 @@ public class Module extends Observable {
 		return true;
 	}
 	
+	// Kanske byta namn på metoden.
 	boolean sendRecheck() {
 //		opponentID = client.checkReady(playerID);
 //		System.out.println(opponentID);
@@ -132,7 +133,7 @@ public class Module extends Observable {
 			bodyparts[i] = 0;
 		}
 	}
-	
+	// Vi borde skriva om kod så att det aldrig skickas mellanrum på kroppsdelar.
 	void dealDamage(String bodypart) {
 		// client.sendDamage(bodypart, opponentID);
 		if(bodypart.equals("Head")) {

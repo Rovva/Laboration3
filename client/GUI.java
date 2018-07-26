@@ -34,6 +34,9 @@ import javax.swing.JOptionPane;
 
 import client.Module;
 
+// Vi borde nog dela upp alla de olika GUIs till separata filer så det blir
+// lättare att överskåda.
+
 public class GUI extends JFrame implements Observer, ActionListener {
 	
 	JLabel welcomeLabel, connectingLabel, connectedLabel, connectedIPLabel, levelAdventureLabel,
@@ -461,11 +464,12 @@ public class GUI extends JFrame implements Observer, ActionListener {
 			mod.setState("Connected/FightWait");
 		}
 		checkBodyParts(op);
-		attackBodyPart(op);
+		attackBodyParts(op);
 		this.armorPoints.setText(mod.getArmorPoints() + " / " + mod.getMaxArmorPoints() + " points.");
 	}
-	
-	private void attackBodyPart(String op) {
+	// Man borde ändra så den skickar namnen med underline iställer för mellanslag
+	// eftersom vi ofta delar upp en sträng med hjälp av mellanslag.
+	private void attackBodyParts(String op) {
 		if(op == "Head") {
 			mod.dealDamage("Head");
 		} else if (op == "Left Arm") {
@@ -499,10 +503,7 @@ public class GUI extends JFrame implements Observer, ActionListener {
 		}
 	}
 	
-	/* void attackBodyParts(String op) {
-		
-	} */
-	
+	// Jag misstänker vi måste implementera en del av tur-systemet här.
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		String moduleGameState = mod.getState();

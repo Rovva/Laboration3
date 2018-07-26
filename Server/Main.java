@@ -5,7 +5,8 @@ import server.EventHandler;
 import server.Player;
 import server.Server;
 import server.startMatch;
-
+// Används inte, använd Server.java istället för att starta upp servern
+// Kanske borde man ta bort denna?
 public class Main {
 
 	public static void main(String[] args) {

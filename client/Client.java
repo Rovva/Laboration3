@@ -23,6 +23,8 @@ public class Client {
 	            socket = new Socket(hostName, portNumber);
 	            out = new DataOutputStream(socket.getOutputStream());
 	            in = new DataInputStream(socket.getInputStream());
+	            
+// All den här utkommenterade koden kan vi nog ta bort.
 //	            in = new BufferedReader(
 //	                new InputStreamReader(socket.getInputStream()));
 //	            BufferedReader stdIn =
@@ -50,7 +52,7 @@ public class Client {
 	        }
 		}
 
-
+		// Kan vara värt att byta ut variabel namn såsom bla och temp.
 		public int[] newPlayer() {
 			fromUser = "NEW_CLIENT";
 			String bla;
@@ -108,7 +110,7 @@ public class Client {
 				e.printStackTrace();
 			}
 		}
-		
+		// Denna metod byter ut den gamla "checkReady", byta variabelnamn kan vara bra
 		public int checkOpponent(int id) {
 			String temp;
 			String[] temp2;
@@ -140,7 +142,7 @@ public class Client {
 			}
 			return -1;
 		}
-		
+		// Vi kan nog mest troligt ta bort denna metod.
 		public int checkReady(int id){
 			String temp;
 			String[] temp2;
@@ -167,7 +169,7 @@ public class Client {
 				return -1;
 			}
 		}
-		
+		// Denna metod används inte alls.
 		public int listenToCall(int playerid) {
 			String temp;
 			String[] temp2;
@@ -195,7 +197,7 @@ public class Client {
 				}
 			}
 		}
-		
+		// Vi kan nog säkert snygga till den här metoden.
 		boolean sendDamage(String bodypart, int opponentID) {
 			try {
 				out.writeUTF("DMG Hit " + bodypart + " Player " + opponentID);

@@ -62,7 +62,7 @@ public class Protocol {
         	} else {
         		state = READY;
         	}
-        	
+        // Denna if sats är ersatt längre ned med Opponents. Kanske plocka bort denna?
         } else if (state == READY && theInput.contains("Recheck")) {
         	System.out.println("Checking for other players");
         	String[] temp = theInput.split(" ");
@@ -91,7 +91,7 @@ public class Protocol {
         			}
         		}
         	}
-        	
+        // Denna funktion är inte helt klar, vi måste ha en loop här så det stödjer fler än 2 spelare.
         } else if (state == READY && theInput.contains("DMG")) {
         	String temp[] = theInput.split(" ");
         	//for(int i = 0; i < EventHandler.battleRoom.length; i++) {
@@ -108,6 +108,7 @@ public class Protocol {
         } else if (theInput.equals("PING")) {
         	System.out.println("PING OK");
         	theOutput = "PING OK";
+        // Denna är inte heller helt klar, behövs en loop så det finns stöd för fler än 2 spelare.
         } else if(theInput.contains("Opponents")) {
         	System.out.println(theInput);
         	String[] temp = theInput.split(" ");

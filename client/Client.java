@@ -109,6 +109,38 @@ public class Client {
 			}
 		}
 		
+		public int checkOpponent(int id) {
+			String temp;
+			String[] temp2;
+			
+			temp = "Opponents " + id;
+			
+			try {
+				out.writeUTF(temp);
+				out.flush();
+				
+				temp = in.readUTF();
+				
+				if(temp.contains("against")) {
+					System.out.println("vs: " + temp);
+					temp2 = temp.split(" ");
+					if(Integer.parseInt(temp2[0]) == id) {
+						return Integer.parseInt(temp2[2]);
+					} else if(Integer.parseInt(temp2[2]) == id) {
+						return Integer.parseInt(temp2[0]);
+					} else {
+						System.out.println("Something went wrong checking opponent");
+						return -1;
+					}
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.out.println("Something went really wrong when checking opponent");
+				return -1;
+			}
+			return -1;
+		}
+		
 		public int checkReady(int id){
 			String temp;
 			String[] temp2;

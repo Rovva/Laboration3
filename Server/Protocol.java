@@ -20,18 +20,8 @@ public class Protocol {
     private static final int FIGHTING_OTHER_TURN = 5;
     private static final int ANOTHER = 6;
  
-    private static final int NUMJOKES = 7;
- 
     private int state = WAITING;
-    private int currentJoke = 0;
- 
-    private String[] clues = { "Turnip", "Little Old Lady", "Atch", "Who", "Who" };
-    private String[] answers = { "Turnip the heat, it's cold in here!",
-                                 "I didn't know you could yodel!",
-                                 "Bless you!",
-                                 "Is there an owl in here?",
-                                 "Is there an echo in here?" };
- 
+
     public String processInput(String theInput) {
     	System.out.println(theInput);
         String theOutput = "OK";
@@ -118,34 +108,21 @@ public class Protocol {
         } else if (theInput.equals("PING")) {
         	System.out.println("PING OK");
         	theOutput = "PING OK";
-        } else if(theInput.contains("Recheckagain")) {
-        	System.out.println("recheck blabla");
+        } else if(theInput.contains("Opponents")) {
         	System.out.println(theInput);
         	String[] temp = theInput.split(" ");
+        	System.out.println("Checking opponents");
         	System.out.println("temp1: " + temp[1]);
         	System.out.println("temp0: " + temp[0]);
-        	for(int i = 0; i < 10; i++) {
-        		if(EventHandler.battleRoom[i][0] != null) {
-        			if(EventHandler.battleRoom[i][0].getID() == (Integer.parseInt(temp[1]))) {
-        				if(EventHandler.battleRoom[i][1] != null) {
-                			String temp2 = "Room " + i + " Opponent " + EventHandler.battleRoom[i][1].getID();
-                			System.out.println(temp2);
-                			theOutput = temp2;
-            			} else {
-            				theOutput = "Keep waiting";
-            			}
-        			}
-        		} else if(EventHandler.battleRoom[i][1] != null) {
-        			if(EventHandler.battleRoom[i][1].getID() == (Integer.parseInt(temp[1]))) {
-            			if(EventHandler.battleRoom[i][0] != null) {
-                			String temp2 = "Room " + i + " Opponent " + EventHandler.battleRoom[i][0].getID();
-                			System.out.println(temp2);
-                			theOutput = temp2;
-            			} else {
-            				theOutput = "Keep waiting";
-            			}
-        			}
-        		}
+        	if(EventHandler.battleRoom[0][0] != null && EventHandler.battleRoom[0][1] != null) {
+        		if(EventHandler.battleRoom[0][0].getID() == Integer.parseInt(temp[1])) {
+	        		theOutput = EventHandler.battleRoom[0][0].getID() + " against " + EventHandler.battleRoom[0][1].getID();
+	        	} else if(EventHandler.battleRoom[0][1].getID() == Integer.parseInt(temp[1])) {
+	        		theOutput = EventHandler.battleRoom[0][0].getID() + " against " + EventHandler.battleRoom[0][1].getID();
+	        	}
+        	} else {
+        		System.out.println("Need to wait for another player");
+        		theOutput = "wait";
         	}
         }
         return theOutput;

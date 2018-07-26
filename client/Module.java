@@ -110,14 +110,20 @@ public class Module extends Observable {
 	}
 	
 	boolean sendRecheck() {
-		opponentID = client.checkReady(playerID);
-		System.out.println(opponentID);
-		if(opponentID < 0) {
-			return false;
-		} else {
-			return true;
-		}
+//		opponentID = client.checkReady(playerID);
+//		System.out.println(opponentID);
+//		if(opponentID < 0) {
+//			return false;
+//		} else {
+//			return true;
+//		}
 		
+		if(client.checkOpponent(playerID) != -1) {
+			this.opponentID = client.checkOpponent(playerID);
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	void resetArmorPoints() {

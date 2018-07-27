@@ -1,11 +1,11 @@
-package server;
+package Server;
 
 import java.net.*;
 
-import server.BodyPart;
-import server.EventHandler;
-import server.Player;
-import server.StartMatch;
+import Server.BodyPart;
+import Server.EventHandler;
+import Server.Player;
+import Server.StartMatch;
 
 import java.io.*;
  

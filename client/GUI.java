@@ -40,7 +40,7 @@ import client.Module;
 public class GUI extends JFrame implements Observer, ActionListener {
 	
 	JLabel welcomeLabel, connectingLabel, connectedLabel, connectedIPLabel, levelAdventureLabel,
-		   fightLabel, attackQuestionLabel, waitingLabel;
+		   fightLabel, attackQuestionLabel, waitingLabel, turnLabel;
 	
 	JButton connectButton, disconnectButton, startFightButton;
 	
@@ -406,6 +406,7 @@ public class GUI extends JFrame implements Observer, ActionListener {
 			attackLeftLeg.addActionListener(this);
 			contentPane.add(attackRightLeg);
 			attackRightLeg.addActionListener(this);
+			contentPane.add(turnLabel);
 			
 			// Place label and buttons in gui
 			layout.putConstraint(SpringLayout.NORTH, attackLabel, 5, SpringLayout.NORTH, contentPane);
@@ -425,9 +426,12 @@ public class GUI extends JFrame implements Observer, ActionListener {
 			
 			layout.putConstraint(SpringLayout.NORTH, attackLeftLeg, 5, SpringLayout.NORTH, contentPane);
 			layout.putConstraint(SpringLayout.WEST, attackLeftLeg, 5, SpringLayout.EAST, attackRightArm);
-			
+
 			layout.putConstraint(SpringLayout.NORTH, attackRightLeg, 5, SpringLayout.NORTH, contentPane);
 			layout.putConstraint(SpringLayout.WEST, attackRightLeg, 5, SpringLayout.EAST, attackLeftLeg);
+
+			layout.putConstraint(SpringLayout.NORTH, turnLabel, 5, SpringLayout.NORTH, contentPane);
+			layout.putConstraint(SpringLayout.WEST, turnLabel, 5, SpringLayout.EAST, attackRightLeg);
 
 			
 		} catch (IOException e) {
@@ -468,7 +472,13 @@ public class GUI extends JFrame implements Observer, ActionListener {
 			mod.setState("Connected/FightWait");
 		}
 		checkBodyParts(op);
-		attackBodyParts(op);
+		// Försöker implementera kontroll om vems tur det är
+		if(mod.checkPlayerTurn()) {
+			attackBodyParts(op);
+			turnLabel.setText("");
+		} else {
+			turnLabel.setText("It is not your turn!");
+		}
 		this.armorPoints.setText(mod.getArmorPoints() + " / " + mod.getMaxArmorPoints() + " points.");
 	}
 	// Man borde ändra så den skickar namnen med underline iställer för mellanslag

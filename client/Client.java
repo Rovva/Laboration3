@@ -215,4 +215,24 @@ public class Client {
 			}
 		}
 
+		// Skriva en metod för att kolla om det är spelarens tur att slåss.
+		int checkTurn() {
+			try {
+				out.writeUTF("player_turn");
+
+				String temp = in.readUTF();
+				System.out.println(temp);
+				String temp2[] = temp.split(" ");
+				if(in.readUTF().contains("Player id")) {
+					System.out.println("Player " + temp2[2] + "s turn");
+				}
+				return Integer.parseInt(temp2[2]);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return -1;
+			}
+			
+		}
+		
 }

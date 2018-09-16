@@ -125,6 +125,8 @@ public class Protocol {
         		System.out.println("Need to wait for another player");
         		theOutput = "wait";
         	}
+        } else if(theInput.contains("player_turn")) {
+        	System.out.println("Checking whos turn it is.");
         }
         return theOutput;
     }

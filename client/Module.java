@@ -153,4 +153,11 @@ public class Module extends Observable {
 		}
 	}
 	
+	boolean checkPlayerTurn() {
+		if(client.checkTurn() == this.playerID) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

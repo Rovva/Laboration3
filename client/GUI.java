@@ -40,7 +40,7 @@ import client.Module;
 public class GUI extends JFrame implements Observer, ActionListener {
 	
 	JLabel welcomeLabel, connectingLabel, connectedLabel, connectedIPLabel, levelAdventureLabel,
-		   fightLabel, attackQuestionLabel;
+		   fightLabel, attackQuestionLabel, waitingLabel;
 	
 	JButton connectButton, disconnectButton, startFightButton;
 	
@@ -112,7 +112,7 @@ public class GUI extends JFrame implements Observer, ActionListener {
 	}
 	
 	private void connectingGUI() {
-		resetGUI();
+		contentPane.removeAll();
 		frame.repaint();
 		this.guiState = "Connecting";
 		connectingLabel = new JLabel("Connecting to: " + ipAdress);
@@ -437,14 +437,18 @@ public class GUI extends JFrame implements Observer, ActionListener {
 	}
 	
 	private void waitGUI() {
-		resetGUI();
-		resetGUI();
+		contentPane.removeAll();
 		this.guiState = "Connected/FightWait";
-		JLabel waiting = new JLabel("Waiting for another player...");
-		contentPane.add(waiting);
-		layout.putConstraint(SpringLayout.VERTICAL_CENTER, waiting, 0, SpringLayout.VERTICAL_CENTER, contentPane);
-		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, waiting, 0, SpringLayout.HORIZONTAL_CENTER, contentPane);
+		
+		waitingLabel = new JLabel("Waiting for another player...");
+		
+		contentPane.add(waitingLabel);
+		
+		layout.putConstraint(SpringLayout.NORTH, waitingLabel, 20, SpringLayout.NORTH, contentPane);
+		layout.putConstraint(SpringLayout.WEST, waitingLabel, 20, SpringLayout.WEST, contentPane);
 
+        contentPane.revalidate();
+        contentPane.repaint();
 	}
 	
 	@Override
@@ -453,7 +457,7 @@ public class GUI extends JFrame implements Observer, ActionListener {
 		if(op == "Connect") {
 			ipAdress = JOptionPane.showInputDialog("Adress:port");
 			try {
-				mod.connectToServer(ipAdress);
+				mod.connectToServer("127.0.0.1:4444");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -525,9 +529,21 @@ public class GUI extends JFrame implements Observer, ActionListener {
 			System.out.println("wait");
 			mod.setReady();
 		} else if(moduleGameState == ("Connected/FightWait") && this.guiState == "Connected/FightWait") {
-			System.out.println("moduleGameState : " + moduleGameState + " this.guiState: " + this.guiState);
 			waitGUI();
+			System.out.println("moduleGameState : " + moduleGameState + " this.guiState: " + this.guiState);
 			System.out.println("Waiting...");
+			
+			//if(mod.sendRecheck()) {
+			//	System.out.println("lol");
+			//	mod.setState("Connected/Fighting");
+			//}
+
+			try {
+				TimeUnit.SECONDS.sleep(1);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			loop:
 			while(true) {
 				try {

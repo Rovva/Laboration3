@@ -8,7 +8,12 @@ import server.Player;
 import server.StartMatch;
 
 import java.io.*;
- 
+
+// Måste fixa hantering av flera spelare och udda antal.
+// t.ex. att två spelare ansluter och de matchas upp, medan en ny spelare
+// ansluter men måste vänta på en fjärde spelare för att kunna spela. Samt
+// Ifall en spelare av de första spelare lämnar, så matchas spelare 1 och 2.
+
 public class Protocol {
 	
 	EventHandler ble = new EventHandler();
